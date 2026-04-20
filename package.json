@@ -1,0 +1,28 @@
+{
+  "name": "lin-shi",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@9.15.0",
+  "scripts": {
+    "dev:api": "pnpm --filter @lin-shi/api start:dev",
+    "dev:web": "pnpm --filter @lin-shi/web dev",
+    "build": "pnpm -r --parallel build",
+    "lint": "pnpm -r --parallel lint",
+    "typecheck": "pnpm -r --parallel typecheck",
+    "db:up": "docker compose up -d postgres",
+    "db:down": "docker compose down",
+    "db:logs": "docker compose logs -f postgres",
+    "db:migrate": "pnpm --filter @lin-shi/api migration:run",
+    "db:migrate:generate": "pnpm --filter @lin-shi/api migration:generate",
+    "seed": "pnpm --filter @lin-shi/api seed"
+  },
+  "devDependencies": {
+    "typescript": "5.6.3",
+    "@types/node": "22.10.2",
+    "prettier": "3.4.2"
+  },
+  "engines": {
+    "node": ">=22.0.0",
+    "pnpm": ">=9.0.0"
+  }
+}
