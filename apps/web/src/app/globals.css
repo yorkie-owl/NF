@@ -1,0 +1,19 @@
+@import 'tailwindcss';
+
+:root {
+  --linshi-bg: #fdfbfc;
+  --linshi-primary: #ff4d4f;
+  --linshi-gradient-from: #ffb5b5;
+  --linshi-gradient-to: #ffd19d;
+  /* 画板「3」冰箱内页：自上而下偏柔的桃粉→奶油白，减少硬分段感 */
+  --linshi-fridge-inside-top: #ffe5e8;
+  --linshi-fridge-inside-mid: #fff2eb;
+  --linshi-fridge-inside-bottom: #fff9f5;
+}
+
+body {
+  @apply min-h-[100dvh] antialiased;
+  /* 与 MobileShell 外圈一致：浅灰紫，避免纯深灰“发暗” */
+  background: #e8e5ea;
+  color: #171717;
+}
