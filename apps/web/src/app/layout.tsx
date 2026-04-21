@@ -21,10 +21,14 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="zh-CN">
       <body>
-        <QueryProvider>
-          {children}
-          <ToastHost />
-        </QueryProvider>
+        <div className="demo-stage">
+          <div className="phone-frame">
+            <QueryProvider>
+              {children}
+              <ToastHost />
+            </QueryProvider>
+          </div>
+        </div>
       </body>
     </html>
   );
