@@ -47,17 +47,30 @@ Framelink `figma-developer-mcp` 通常暴露以下工具（以实际 `/mcp` 输�
 - 确认 `npx -y figma-developer-mcp` 能手动跑通
 - 确认 token 没被 Figma revoke
 
-## 板块 <-> frame 对应（待填）
+## 板块 <-> frame 对应（2026-04-20 会话填充完成）
 
-会话重连后由下一个 Claude 填充：
+| 板块 | Figma frame / node-id | 本地 PNG |
+|---|---|---|
+| A · 登录 / 邀请码注册 | `2:8907` | `figma_exports/frame-02.png` |
+| A · 个人信息综合（查看） | `32:207` | `figma_exports/frame-04.png` |
+| A · 个人信息编辑 | **Figma 缺稿**，自创设计 | — |
+| A · 交友偏好编辑 | **Figma 缺稿**，自创设计 | — |
+| A · 食物偏好编辑 | **Figma 缺稿**，自创设计 | — |
+| A · 邀请码详情 | **Figma 缺稿**，自创设计（从 frame-04 邀请码卡片下钻） | — |
+| C · 我的锅列表 | `2:8910` | `figma_exports/frame-06.png` |
+| C · 起锅（创建活动） | `32:448` | `figma_exports/frame-05.png` |
+| C · 我的锅详情（2/3 人） | `2:8916` | `figma_exports/frame-12.png` |
+| C · 我的锅详情（4/5 人数据变体） | `42:4715` | `figma_exports/frame-15.png` |
+| C · 我的锅详情（1/4 人数据变体） | `43:5330` | `figma_exports/frame-16.png` |
+| C · 活动消息中心（4 tab） | `2:8911-8914` | `figma_exports/frame-07..10.png` |
+| C · 发现全部活动 | **Figma 缺稿**，自创设计 | — |
+| 全局 · 底栏（三件套） | 从 `2:8906` 抽取 | `figma_exports/frame-01.png` |
 
-| 板块 | Figma frame / node-id |
-|---|---|
-| A · 登录 | TBD |
-| A · 个人信息查看 | TBD |
-| A · 个人信息编辑 | TBD |
-| A · 交友偏好 | TBD |
-| A · 食物偏好 | TBD |
-| C · 活动列表 | TBD |
-| C · 起锅 | TBD |
-| C · 我的锅 | TBD |
+**其他 frames（不在本仓库 A+C 范围）**：
+- `2:8906` 首页冰箱关闭态 · B 板块
+- `2:8210` 冰箱展开 · B 板块
+- `37:2692` 食材到达弹层 · B 板块
+- `39:3639` 拍照识别 · B 板块
+- `32:1064` 聊天室 · E 板块
+
+**MCP 离线的 fallback**：Figma MCP 会话断开后，直接 Read 本地 PNG 作为视觉参考即可（`figma_exports/frame-0X.png`）。

@@ -1,74 +1,74 @@
-# Handoff Status（会话交接状态）
+# Handoff Status · 交接状态
 
-## 时间与进度
+## 时间线
+- **启动**：2026-04-20
+- **Deadline**：2026-04-23（~剩 2 天，用于 demo 打磨 + 部署）
+- **GitHub 建仓计划**：2026-04-22（用户负责）
+- **Demo 形式**：公网可访问（用户自有服务器）
 
-- **今天**：2026-04-20
-- **Deadline**：约 3 天（2026-04-23 前后，黑客松闭幕）
-- **GitHub 仓库**：后天（2026-04-22）由用户建好，在此之前本地开发（`E:\Agent program\邻食\`）
-- **Demo 形式**：**需要公网可访问**（用户有自有服务器，部署环节会上线 demo）
-
-## 团队上下文
-
+## 团队
 - 4 人全栈团队
-- 本仓库所有者负责 **A（用户/认证）+ C（活动锅）**，前端 + 后端 + 联调都自己搞
-- 另外 3 人分工**未告知本仓库**，按"队友未交付"处理：B/D/E/F 全部 mock
+- 本仓库所有者负责 **A（用户/认证）+ C（活动锅）**，前后端都完成
+- B/D/E/F 由 3 位队友另做；本仓库用 mock client 对接
 
-## 用户明确过的"开发原则/工作流"
+## 里程碑
 
-全部在 `TEAM-CONTRACT.md` §3 和 §11-§13，不要跳过它们去做任何实质开发。要点回顾：
+| 阶段 | 状态 | 证据 |
+|---|---|---|
+| PRD + spec + plan | ✅ | `docs/superpowers/specs/` 3 份 + `plans/` 1 份 |
+| 技术栈决策 | ✅ | `TEAM-CONTRACT.md` |
+| Figma MCP + 16 frames 导出 | ✅ | `figma_exports/` + `docs/figma-integration.md` 对照表 |
+| Walking Skeleton | ✅ | commit `4a97325`, `/health` 200 |
+| **A 板块后端**（auth / users / preferences / invite-codes / badges） | ✅ | commit `80c3162`, 全端点 curl 通过 |
+| **A 板块前端**（6 页 + 共享 UI） | ✅ | commit `f26d020`, 浏览器可点通 |
+| **C 板块后端**（activities / events / status / feeds + cron + 状态机） | ✅ | commit `2b44c60`, 14 个 transition 单测 + curl 验证 |
+| **C 板块前端**（5 页 + 底栏 + 动画） | ✅ | commit `3b9f293`, 11 路由 HTTP 200 |
+| **Simplify 审查**（3 agents + 12 条修复） | ✅ | commit `9ed1dab`, 净减 64 行 |
+| **PJR** | ✅ | api + web lint/typecheck/build 全绿；工作区干净 |
+| git-merge-to-develop | ⏳ dev 已是目标分支，需 ffwd main（由用户/部署时决定） |
+| Playwright E2E（桌面 + 移动） | ⏳ 下一步 |
+| 公网部署 | ⏳ 由用户负责 |
 
-- 5 条硬规则：单一职责 / 最简代码（不做向后兼容）/ 类型严格（no any）/ KISS / 文档置信度
-- 所有 API 配置走 `.env`
-- 所有实质开发**在 Worktree 里执行**
-- 完成流程：代码 → `simplify` → `project-review:pjr`（lint + build + 逻辑）→ `git-merge-to-develop`（到 dev 分支）→ Playwright E2E（桌面 + 移动，逐按钮点通）
-- 涉及前端时，加载 `ui-ux-pro-max:ui-ux-pro-max` 和 `frontend-logic-design:frontend-logic-design` 辅助
-- Skills 找不到**必须停下来报错**，不许自作主张跳过
+## 当前运行状态
+- `lin-shi-postgres`（Docker）healthy
+- api `http://localhost:3000/health` → 200
+- web `http://localhost:3001/*` 11 路由 200
 
-## 当前状态（Milestone 视图）
+## 种子数据
+- `LINSH-TEST` 邀请码，max_uses=999，永远可用
+- 测试账号 `frank@example.com / Password123`
+- 多个其他 e2e 账号（alice/dave/eve/charlie/harry/ivy/grace）
 
-| 阶段 | 状态 |
-|---|---|
-| 读 PRD + 理解项目 | ✅ 完成，见 `TEAM-CONTRACT.md` §1 |
-| 确定板块 A+C 归属 + 完整范围 | ✅ 完成，见 `TEAM-CONTRACT.md` §5/§6 |
-| 确定技术栈 + Monorepo 结构 + 代码规范 + 工作流 SOP | ✅ 完成，见 `TEAM-CONTRACT.md` §1-§4, §11-§13 |
-| A+C 详细设计（表结构/API/状态机/事件） | ✅ 完成，见 `TEAM-CONTRACT.md` §5/§6 |
-| 对 B/D/E/F 接口契约 | ✅ 完成，见 `TEAM-CONTRACT.md` §7 |
-| Figma MCP 配置 | ✅ 完成（Framelink `figma-developer-mcp` + Personal Access Token） |
-| **Figma 文件连通验证** | ⏳ 新会话里调 `/mcp` 确认 connected |
-| A 模块 design doc (spec) | ❌ 待写（基于 TEAM-CONTRACT §5 + Figma 稿） |
-| A 模块 implementation plan | ❌ 待写 |
-| A 模块 Worktree + 实现 | ❌ 待做 |
-| A 模块 simplify + pjr + merge + Playwright | ❌ 待做 |
-| C 模块 spec + plan + 实现 + 验收 | ❌ 待做 |
+## git 历史（9 commits on dev）
+```
+9ed1dab refactor(simplify): apply review findings
+3b9f293 feat(web/module-c): implement 5 C pages + bottom nav + animations
+2b44c60 feat(module-c): complete activities/events/status/feeds backend
+f26d020 feat(web/module-a): implement 6 A-module pages + shared UI kit
+80c3162 feat(module-a): complete user/auth/preferences/invite/badges backend
+4a97325 feat(skeleton): pnpm monorepo + NestJS api /health + contracts CJS build + docker postgres
+39bc81b feat(web): Next.js 15 skeleton with health page
+87eabf3 chore: initial docs and specs
+```
 
-## 下一个 Claude Code 会话（新窗口）要做的事
+## 关键决策回顾（见 `docs/superpowers/specs/DECISIONS-2026-04-20.md`）
+1. 积分 → credit.score（文案"信用 N"）
+2. 头像 ≤ 2 MB，JPEG/PNG/WebP
+3. Refresh token localStorage（MVP 锁定）
+4. 徽章 Lucide 占位
+5. 邀请码分享仅复制文本
+6. joinScope 默认 ACQUAINTANCES_ONLY
+7. 食材手动输入 fallback（B 未就绪）
+8. feed 入口统一从 `/activities` 顶右铃铛跳 `/activities/feed`
+9. WAITING 过 startTime 直接 CANCELLED，无宽限
 
-**按顺序：**
+## 风险 & 未尽事项
+- **Refresh token 自动轮换**未实装（手动重登；见 simplify 报告次生发现）
+- **Chat 真接入**前，`/activities/[id]` 的"去聊这锅"/`feed` 的聊天 preview 走 mock/空态
+- **Avatar 存储**用本地 `apps/api/uploads/`，demo 上线前改走对象存储需改 UPLOADS_PUBLIC_URL
+- **ActivityFeeds 分页性能**：当前加载全量再分页，真 chat 上线后需要改为 SQL 下推 + 批量 RPC（见 efficiency 报告）
 
-1. **读 `CLAUDE.md`**（会自动加载）+ **`TEAM-CONTRACT.md`**（真相源）
-2. **跑 `/mcp`** 确认 `figma` / `playwright` 状态为 `connected`
-   - 如果没连上 → 查 `docs/figma-integration.md` 故障排查章节
-3. **使用 `ToolSearch` 查 `mcp__figma__*`** 以加载 Figma MCP 工具的 schema
-4. **调 `get_figma_data(file_key="sVwVM1yIkQApx7J1STcbyh", depth=2)`** 列出所有 Page/Frame
-5. **识别 A 和 C 对应的 frame**，填回 `docs/figma-integration.md` 的对照表
-6. **为 A 模块写 spec**：`docs/superpowers/specs/2026-04-20-module-a-user-auth-design.md`
-   - 技术栈细节 **全部已在 TEAM-CONTRACT §5 锁定**，spec 只需补：
-     - Figma 稿对应的前端组件拆解 + 路由
-     - 页面内交互状态（加载/空态/错误态 文案）
-     - 验收 checklist（Playwright 会走的步骤）
-     - 实现顺序建议（先 contracts → entities → service → controller → 前端）
-7. **写完 spec 让用户验收**
-8. **用户批准后**：writing-plans → using-git-worktrees → 实现 → simplify → pjr → git-merge-to-develop → Playwright E2E
-9. **A 完成验收**后对 C 重复（基于 TEAM-CONTRACT §6）
-
-## 遗留问题
-
-- 队友具体分工不明：按 mock 策略推进，B/D/E/F 的真接口接入时机看队友节奏
-- Figma 稿张数未数：重连 MCP 后确认
-- 用户自有服务器的部署规格（OS/Node 版本/反代）未告知：需要用户在部署前补信息
-
-## 敏感信息位置（不要 commit）
-
-- Figma Personal Access Token：`C:\Users\Jayden park\.claude.json` 的 `mcpServers.figma.args[2]`
-- 后端 `.env`（JWT secret、DB password 等）：`apps/api/.env`
-- 前端 `.env.local`：`apps/web/.env.local`
+## 下一步
+1. Playwright E2E 桌面 + 移动双视口（Phase 7）
+2. 交付报告（Phase 8）
+3. 用户部署到自有服务器
