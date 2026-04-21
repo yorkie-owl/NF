@@ -19,9 +19,8 @@ import type {
 } from '@lin-shi/contracts';
 import { UserEntity } from './entities/user.entity';
 import { UserBadgeEntity } from '../badges/entities/user-badge.entity';
-import { FriendPreferencesEntity } from '../preferences/entities/friend-preferences.entity';
-import { FoodPreferencesEntity } from '../preferences/entities/food-preferences.entity';
 import { InviteCodesService } from '../invite-codes/invite-codes.service';
+import { PreferencesService } from '../preferences/preferences.service';
 import {
   CREDIT_CLIENT,
   type CreditClient,
@@ -48,11 +47,8 @@ export class UsersService {
     private readonly users: Repository<UserEntity>,
     @InjectRepository(UserBadgeEntity)
     private readonly userBadges: Repository<UserBadgeEntity>,
-    @InjectRepository(FriendPreferencesEntity)
-    private readonly friendPrefs: Repository<FriendPreferencesEntity>,
-    @InjectRepository(FoodPreferencesEntity)
-    private readonly foodPrefs: Repository<FoodPreferencesEntity>,
     private readonly inviteCodes: InviteCodesService,
+    private readonly prefs: PreferencesService,
     @Inject(CREDIT_CLIENT) private readonly credit: CreditClient,
     private readonly config: ConfigService<Env, true>,
   ) {}
@@ -71,9 +67,9 @@ export class UsersService {
   async getMe(userId: string): Promise<UserPrivate> {
     const user = await this.findById(userId);
 
-    // Ensure preferences rows exist (lazy getOrCreate).
-    await this.ensureFriendPreferences(userId);
-    await this.ensureFoodPreferences(userId);
+    // Ensure preferences rows exist (lazy getOrCreate) via PreferencesService.
+    await this.prefs.getFriend(userId);
+    await this.prefs.getFood(userId);
 
     const [badgeCodes, creditResult] = await Promise.all([
       this.loadBadgeCodes(userId),
@@ -174,32 +170,6 @@ export class UsersService {
   private async loadBadgeCodes(userId: string): Promise<string[]> {
     const rows = await this.userBadges.find({ where: { userId } });
     return rows.map((row) => row.badgeCode);
-  }
-
-  private async ensureFriendPreferences(userId: string): Promise<void> {
-    const row = await this.friendPrefs.findOne({ where: { userId } });
-    if (row) return;
-    await this.friendPrefs.save(
-      this.friendPrefs.create({
-        userId,
-        acceptStrangers: false,
-        distanceKm: 5,
-        timeSlots: [],
-      }),
-    );
-  }
-
-  private async ensureFoodPreferences(userId: string): Promise<void> {
-    const row = await this.foodPrefs.findOne({ where: { userId } });
-    if (row) return;
-    await this.foodPrefs.save(
-      this.foodPrefs.create({
-        userId,
-        cuisines: [],
-        dietaryRestrictions: [],
-        cookingSkill: 'BEGINNER',
-      }),
-    );
   }
 
   /** Utility used by auth.service to assemble the register response. */

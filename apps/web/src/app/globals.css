@@ -63,6 +63,12 @@ body {
 .bg-gradient-invite {
   background: linear-gradient(135deg, #FFCAD4 0%, #FFB68C 100%);
 }
+.bg-gradient-fresh {
+  background: linear-gradient(135deg, #A7F3D0 0%, #34D399 100%);
+}
+.bg-gradient-cool {
+  background: linear-gradient(135deg, #DBEAFE 0%, #3B82F6 100%);
+}
 
 .shadow-glow-primary {
   box-shadow: 0 8px 24px rgba(255, 107, 138, 0.35);

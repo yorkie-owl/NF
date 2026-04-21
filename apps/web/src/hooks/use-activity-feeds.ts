@@ -9,7 +9,7 @@ import {
   type PaginatedResponse,
 } from '@lin-shi/contracts';
 import { api } from '@/lib/api';
-import { getAccessToken } from '@/lib/auth';
+import { isAuthed } from '@/lib/auth';
 import { useDocumentHidden } from '@/lib/visibility-pause';
 
 const FeedsResponseSchema = paginatedResponseSchema(ActivityFeedItemSchema);
@@ -36,7 +36,7 @@ export function useActivityFeeds(
       FeedsResponseSchema.parse(
         await api.get('activity-feeds', { searchParams: { status } }).json(),
       ),
-    enabled: typeof window === 'undefined' ? false : Boolean(getAccessToken()),
+    enabled: isAuthed(),
     refetchInterval: hidden || pollMs === false ? false : pollMs,
     refetchOnWindowFocus: true,
     staleTime,

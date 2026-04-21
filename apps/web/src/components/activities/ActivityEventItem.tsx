@@ -1,5 +1,5 @@
 import type { ActivityEvent } from '@lin-shi/contracts';
-import { relativeTime } from '@/lib/activity-status-label';
+import { relativeTime } from '@/lib/relative-time';
 
 const EVENT_COPY: Record<ActivityEvent['type'], { icon: string; label: string }> = {
   CREATED: { icon: '🍳', label: '活动创建' },

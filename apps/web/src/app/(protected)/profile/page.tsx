@@ -19,6 +19,7 @@ import { useFriendPreferences } from '@/hooks/use-friend-preferences';
 import { useInviteCode } from '@/hooks/use-invite-code';
 import { useMe } from '@/hooks/use-me';
 import { useMyBadges } from '@/hooks/use-my-badges';
+import { clearTokens } from '@/lib/auth';
 import {
   CookingSkillLabel,
   CuisineLabel,
@@ -227,8 +228,7 @@ export default function ProfilePage() {
           size="md"
           full
           onClick={() => {
-            localStorage.removeItem('lin-shi.access');
-            localStorage.removeItem('lin-shi.refresh');
+            clearTokens();
             router.replace('/login');
           }}
         >

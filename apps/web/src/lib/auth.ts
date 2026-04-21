@@ -1,3 +1,7 @@
+import type { QueryClient } from '@tanstack/react-query';
+import type { AuthResponse } from '@lin-shi/contracts';
+import { meQueryKey } from '@/hooks/use-me';
+
 const ACCESS_KEY = 'lin-shi.access';
 const REFRESH_KEY = 'lin-shi.refresh';
 
@@ -25,4 +29,22 @@ export function clearTokens(): void {
   if (!hasWindow()) return;
   window.localStorage.removeItem(ACCESS_KEY);
   window.localStorage.removeItem(REFRESH_KEY);
+}
+
+/**
+ * Returns `true` when an access token is present in this browser session.
+ * Safe to call during SSR — falls back to `false` when `window` is absent.
+ * Use in React Query `enabled:` options to gate authenticated queries.
+ */
+export function isAuthed(): boolean {
+  return hasWindow() && Boolean(getAccessToken());
+}
+
+/**
+ * Persist tokens + prime the `me` query cache after a successful auth flow.
+ * Shared between `useLogin` and `useRegister`.
+ */
+export function onAuthSuccess(qc: QueryClient, data: AuthResponse): void {
+  setTokens({ access: data.tokens.accessToken, refresh: data.tokens.refreshToken });
+  qc.setQueryData(meQueryKey, data.user);
 }

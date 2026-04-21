@@ -20,7 +20,6 @@ import {
   type UseActivitiesParams,
 } from '@/hooks/use-activities';
 import {
-  TIME_QUICK_OPTIONS,
   quickOptionToDate,
   type TimeQuickOptionId,
 } from '@/lib/time-quick-picker';
@@ -171,7 +170,6 @@ export default function DiscoverActivitiesPage() {
               {c.label}
             </FilterChip>
           ))}
-          {TIME_QUICK_OPTIONS.length /* reference to keep import used */ ? null : null}
         </div>
         <div className="flex flex-wrap gap-2">
           {SIZE_CHIPS.map((c) => (

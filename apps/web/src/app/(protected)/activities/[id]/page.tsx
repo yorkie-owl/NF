@@ -3,7 +3,6 @@
 import { motion } from 'framer-motion';
 import {
   ArrowLeft,
-  Info,
   MessageCircle,
   MoreHorizontal,
   UserPlus,
@@ -139,13 +138,6 @@ export default function ActivityDetailPage() {
             {activity.location}
           </p>
         </div>
-        <button
-          type="button"
-          aria-label="活动信息"
-          className="flex h-9 w-9 items-center justify-center rounded-full bg-white shadow-sm hover:bg-neutral-100"
-        >
-          <Info className="h-4 w-4 text-neutral-700" />
-        </button>
         {isCreator ? (
           <div className="relative">
             <button

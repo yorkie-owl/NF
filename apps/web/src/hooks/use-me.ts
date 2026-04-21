@@ -3,7 +3,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { UserPrivateSchema, type UserPrivate } from '@lin-shi/contracts';
 import { api } from '@/lib/api';
-import { getAccessToken } from '@/lib/auth';
+import { isAuthed } from '@/lib/auth';
 
 export const meQueryKey = ['me'] as const;
 
@@ -13,6 +13,6 @@ export function useMe() {
     queryFn: async () => UserPrivateSchema.parse(await api.get('me').json()),
     retry: false,
     refetchOnWindowFocus: true,
-    enabled: typeof window === 'undefined' ? false : Boolean(getAccessToken()),
+    enabled: isAuthed(),
   });
 }

@@ -6,7 +6,7 @@ import {
   type FoodPreferences,
 } from '@lin-shi/contracts';
 import { api } from '@/lib/api';
-import { getAccessToken } from '@/lib/auth';
+import { isAuthed } from '@/lib/auth';
 
 const FOOD_PREF_KEY = ['me', 'preferences', 'food'] as const;
 
@@ -18,7 +18,7 @@ export function useFoodPreferences() {
         await api.get('me/preferences/food').json(),
       ),
     retry: false,
-    enabled: typeof window === 'undefined' ? false : Boolean(getAccessToken()),
+    enabled: isAuthed(),
   });
 }
 

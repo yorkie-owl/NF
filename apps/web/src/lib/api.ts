@@ -1,4 +1,5 @@
 import ky, { HTTPError } from 'ky';
+import { ApiErrorSchema } from '@lin-shi/contracts';
 import { env } from './env';
 import { getAccessToken } from './auth';
 
@@ -15,33 +16,30 @@ export const api = ky.create({
   },
 });
 
-export interface ApiError {
-  code: string;
-  message: string;
-  status: number;
-}
-
 /**
- * Extract { code, message } from ky HTTPError. API returns:
- *   { error: { code: string, message: string, details?: unknown } }
- * (see TEAM-CONTRACT §4.x). Returns null if not an HTTPError.
+ * Extract { code, message } from any error. The server returns the flat
+ * `ApiError` envelope declared in `packages/contracts/common/error.ts`
+ * (see TEAM-CONTRACT §4.3). Always returns a usable shape — falls back
+ * to UNKNOWN when the body can't be parsed.
  */
-export async function extractApiError(err: unknown): Promise<ApiError | null> {
-  if (!(err instanceof HTTPError)) return null;
-  try {
-    const body = (await err.response.clone().json()) as {
-      error?: { code?: unknown; message?: unknown };
-    };
-    const code =
-      typeof body.error?.code === 'string' ? body.error.code : 'UNKNOWN';
-    const message =
-      typeof body.error?.message === 'string'
-        ? body.error.message
-        : err.message;
-    return { code, message, status: err.response.status };
-  } catch {
-    return { code: 'UNKNOWN', message: err.message, status: err.response.status };
+export async function extractApiError(
+  err: unknown,
+): Promise<{ code: string; message: string }> {
+  if (err instanceof HTTPError) {
+    try {
+      const body: unknown = await err.response.clone().json();
+      const parsed = ApiErrorSchema.safeParse(body);
+      if (parsed.success) {
+        return { code: parsed.data.code, message: parsed.data.message };
+      }
+    } catch {
+      /* fall through */
+    }
   }
+  return {
+    code: 'UNKNOWN',
+    message: err instanceof Error ? err.message : '未知错误',
+  };
 }
 
 export { HTTPError };

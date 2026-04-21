@@ -7,8 +7,8 @@ import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { type UpdateProfileRequest } from '@lin-shi/contracts';
+import { Field } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { SaveBar } from '@/components/common/SaveBar';
 import { UnsavedChangesDialog } from '@/components/common/UnsavedChangesDialog';
 import {
@@ -261,24 +261,3 @@ export default function ProfileEditPage() {
   );
 }
 
-function Field({
-  id,
-  label,
-  error,
-  children,
-}: {
-  id: string;
-  label: string;
-  error?: string | undefined;
-  children: React.ReactNode;
-}) {
-  return (
-    <div>
-      <Label htmlFor={id}>{label}</Label>
-      <div className="mt-1.5">{children}</div>
-      {error ? (
-        <p className="mt-1 text-[12px] text-danger-500">{error}</p>
-      ) : null}
-    </div>
-  );
-}

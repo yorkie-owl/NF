@@ -7,8 +7,7 @@ import {
   type RegisterRequest,
 } from '@lin-shi/contracts';
 import { api } from '@/lib/api';
-import { setTokens } from '@/lib/auth';
-import { meQueryKey } from './use-me';
+import { onAuthSuccess } from '@/lib/auth';
 
 export function useRegister() {
   const qc = useQueryClient();
@@ -17,12 +16,6 @@ export function useRegister() {
       AuthResponseSchema.parse(
         await api.post('auth/register', { json: payload }).json(),
       ),
-    onSuccess: (data) => {
-      setTokens({
-        access: data.tokens.accessToken,
-        refresh: data.tokens.refreshToken,
-      });
-      qc.setQueryData(meQueryKey, data.user);
-    },
+    onSuccess: (data) => onAuthSuccess(qc, data),
   });
 }

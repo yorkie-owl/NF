@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { UserBadgeSchema, type UserBadge } from '@lin-shi/contracts';
 import { z } from 'zod';
 import { api } from '@/lib/api';
-import { getAccessToken } from '@/lib/auth';
+import { isAuthed } from '@/lib/auth';
 
 const MyBadgesSchema = z.array(UserBadgeSchema);
 
@@ -14,6 +14,6 @@ export function useMyBadges() {
     queryFn: async () =>
       MyBadgesSchema.parse(await api.get('me/badges').json()),
     retry: false,
-    enabled: typeof window === 'undefined' ? false : Boolean(getAccessToken()),
+    enabled: isAuthed(),
   });
 }

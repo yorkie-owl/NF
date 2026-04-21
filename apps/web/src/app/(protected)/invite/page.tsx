@@ -6,20 +6,8 @@ import { Button } from '@/components/ui/button';
 import { InviteCodeCard } from '@/components/common/InviteCodeCard';
 import { useInviteCode } from '@/hooks/use-invite-code';
 import { shareOrCopy } from '@/lib/copy';
+import { relativeTime } from '@/lib/relative-time';
 import { toast } from '@/lib/toast';
-
-function relativeTime(iso: string): string {
-  const then = new Date(iso).getTime();
-  if (Number.isNaN(then)) return '';
-  const diff = Date.now() - then;
-  const days = Math.floor(diff / 86_400_000);
-  if (days <= 0) return '今天加入';
-  if (days === 1) return '1 天前加入';
-  if (days < 30) return `${days} 天前加入`;
-  const months = Math.floor(days / 30);
-  if (months < 12) return `${months} 个月前加入`;
-  return `${Math.floor(months / 12)} 年前加入`;
-}
 
 export default function InvitePage() {
   const router = useRouter();

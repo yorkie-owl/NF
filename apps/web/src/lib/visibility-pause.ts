@@ -24,14 +24,3 @@ export function useDocumentHidden(): boolean {
 
   return hidden;
 }
-
-/**
- * Returns the refetchInterval value for React Query given a desired ms interval,
- * auto-pausing when the document is hidden.
- *
- *     refetchInterval: useVisibilityRefetchInterval(10_000)
- */
-export function useVisibilityRefetchInterval(intervalMs: number): number | false {
-  const hidden = useDocumentHidden();
-  return hidden ? false : intervalMs;
-}

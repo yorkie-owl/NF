@@ -10,7 +10,7 @@ import {
   type PaginatedResponse,
 } from '@lin-shi/contracts';
 import { api } from '@/lib/api';
-import { getAccessToken } from '@/lib/auth';
+import { isAuthed } from '@/lib/auth';
 
 export interface UseActivitiesParams {
   scope: 'mine' | 'all';
@@ -62,7 +62,7 @@ export function useActivities(params: UseActivitiesParams) {
           .get('activities', { searchParams: buildSearchParams(params) })
           .json(),
       ),
-    enabled: typeof window === 'undefined' ? false : Boolean(getAccessToken()),
+    enabled: isAuthed(),
     staleTime: 30_000,
     refetchOnWindowFocus: true,
   });

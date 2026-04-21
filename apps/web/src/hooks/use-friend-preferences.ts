@@ -6,7 +6,7 @@ import {
   type FriendPreferences,
 } from '@lin-shi/contracts';
 import { api } from '@/lib/api';
-import { getAccessToken } from '@/lib/auth';
+import { isAuthed } from '@/lib/auth';
 
 const FRIEND_PREF_KEY = ['me', 'preferences', 'friend'] as const;
 
@@ -18,7 +18,7 @@ export function useFriendPreferences() {
         await api.get('me/preferences/friend').json(),
       ),
     retry: false,
-    enabled: typeof window === 'undefined' ? false : Boolean(getAccessToken()),
+    enabled: isAuthed(),
   });
 }
 

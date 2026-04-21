@@ -1,15 +1,17 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   ActivityEventSchema,
   paginatedResponseSchema,
+  type ActivityDetail,
   type ActivityEvent,
   type PaginatedResponse,
 } from '@lin-shi/contracts';
 import { api } from '@/lib/api';
-import { getAccessToken } from '@/lib/auth';
+import { isAuthed } from '@/lib/auth';
 import { useDocumentHidden } from '@/lib/visibility-pause';
+import { activityDetailKey } from './use-activity';
 
 const EventsResponseSchema = paginatedResponseSchema(ActivityEventSchema);
 
@@ -19,6 +21,7 @@ export function activityEventsKey(id: string) {
 
 export function useActivityEvents(id: string | undefined, pageSize = 20) {
   const hidden = useDocumentHidden();
+  const qc = useQueryClient();
   return useQuery<PaginatedResponse<ActivityEvent>>({
     queryKey: activityEventsKey(id ?? ''),
     queryFn: async () =>
@@ -29,11 +32,16 @@ export function useActivityEvents(id: string | undefined, pageSize = 20) {
           })
           .json(),
       ),
-    enabled:
-      typeof window === 'undefined'
-        ? false
-        : Boolean(id) && Boolean(getAccessToken()),
-    refetchInterval: hidden ? false : 10_000,
+    enabled: Boolean(id) && isAuthed(),
+    refetchInterval: () => {
+      if (hidden) return false;
+      const activity = id
+        ? qc.getQueryData<ActivityDetail>(activityDetailKey(id))
+        : undefined;
+      const status = activity?.status;
+      if (status === 'COMPLETED' || status === 'CANCELLED') return false;
+      return 10_000;
+    },
     refetchOnWindowFocus: true,
     staleTime: 5_000,
   });

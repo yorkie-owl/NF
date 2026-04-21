@@ -18,8 +18,7 @@ const BADGE_VISUALS: Record<string, BadgeVisual> = {
   },
   healthy_life: {
     icon: Leaf,
-    gradient:
-      '[background:linear-gradient(135deg,#A7F3D0_0%,#34D399_100%)]',
+    gradient: 'bg-gradient-fresh',
     chineseName: '健康生活',
   },
   warm_host: {
@@ -29,8 +28,7 @@ const BADGE_VISUALS: Record<string, BadgeVisual> = {
   },
   punctual_diner: {
     icon: Clock,
-    gradient:
-      '[background:linear-gradient(135deg,#DBEAFE_0%,#3B82F6_100%)]',
+    gradient: 'bg-gradient-cool',
     chineseName: '准时达人',
   },
 };

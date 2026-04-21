@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import type { ActivityFeedItem } from '@lin-shi/contracts';
 import { ActivityStatusChip } from './ActivityStatusChip';
-import { relativeTime } from '@/lib/activity-status-label';
+import { relativeTime } from '@/lib/relative-time';
 import { useMarkFeedRead } from '@/hooks/use-mark-feed-read';
 import { cn } from '@/lib/cn';
 

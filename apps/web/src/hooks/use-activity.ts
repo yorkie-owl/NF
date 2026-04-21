@@ -6,7 +6,7 @@ import {
   type ActivityDetail,
 } from '@lin-shi/contracts';
 import { api } from '@/lib/api';
-import { getAccessToken } from '@/lib/auth';
+import { isAuthed } from '@/lib/auth';
 import { useDocumentHidden } from '@/lib/visibility-pause';
 
 export const activityDetailKey = (id: string) =>
@@ -18,11 +18,13 @@ export function useActivity(id: string | undefined) {
     queryKey: activityDetailKey(id ?? ''),
     queryFn: async () =>
       ActivityDetailSchema.parse(await api.get(`activities/${id}`).json()),
-    enabled:
-      typeof window === 'undefined'
-        ? false
-        : Boolean(id) && Boolean(getAccessToken()),
-    refetchInterval: hidden ? false : 10_000,
+    enabled: Boolean(id) && isAuthed(),
+    refetchInterval: (q) => {
+      if (hidden) return false;
+      const status = q.state.data?.status;
+      if (status === 'COMPLETED' || status === 'CANCELLED') return false;
+      return 10_000;
+    },
     refetchOnWindowFocus: true,
     staleTime: 5_000,
   });
