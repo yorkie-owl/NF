@@ -1,18 +1,35 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, type ReactNode } from 'react';
 import { HTTPError } from '@/lib/api';
 import { clearTokens, getAccessToken } from '@/lib/auth';
 import { useMe } from '@/hooks/use-me';
 import { BottomNav } from '@/components/nav/BottomNav';
 
+/**
+ * Routes that show the bottom nav — tab-level pages only, per Figma.
+ * Everything else (detail / edit / create) uses its own sticky CTA and
+ * would visually clash with the dome nav.
+ */
+const NAV_ROUTES = new Set([
+  '/profile',
+  '/activities',
+  '/activities/discover',
+]);
+
+function shouldShowNav(pathname: string | null): boolean {
+  if (!pathname) return false;
+  return NAV_ROUTES.has(pathname);
+}
+
 export default function ProtectedLayout({ children }: { children: ReactNode }) {
   const router = useRouter();
+  const pathname = usePathname();
   const { error, isLoading } = useMe();
+  const showNav = shouldShowNav(pathname);
 
   useEffect(() => {
-    // Synchronous token check — if there's no access token, bounce immediately.
     if (typeof window === 'undefined') return;
     if (!getAccessToken()) {
       router.replace('/login');
@@ -21,7 +38,6 @@ export default function ProtectedLayout({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (error && error instanceof HTTPError && error.response.status === 401) {
-      // Clear stale tokens before bouncing — otherwise /login will see them and bounce back (loop).
       clearTokens();
       router.replace('/login');
     }
@@ -32,9 +48,9 @@ export default function ProtectedLayout({ children }: { children: ReactNode }) {
   }
 
   return (
-    <div className="flex min-h-screen flex-col bg-neutral-50 pb-24">
+    <div className={`flex min-h-screen flex-col bg-neutral-50 ${showNav ? 'pb-28' : ''}`}>
       <div className="flex-1">{children}</div>
-      <BottomNav />
+      {showNav ? <BottomNav /> : null}
     </div>
   );
 }
