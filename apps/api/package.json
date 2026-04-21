@@ -7,7 +7,7 @@
     "start": "nest start",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
-    "lint": "eslint 'src/**/*.ts'",
+    "lint": "eslint \"src/**/*.ts\" \"migrations/**/*.ts\"",
     "typecheck": "tsc --noEmit",
     "migration:generate": "typeorm-ts-node-commonjs migration:generate -d src/config/typeorm.cli.ts",
     "migration:run": "typeorm-ts-node-commonjs migration:run -d src/config/typeorm.cli.ts",
