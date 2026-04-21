@@ -31,14 +31,14 @@ export function PotButton({ href, label = '准备起锅', className }: PotButton
         whileTap={{ scale: 0.94 }}
         transition={scalePressIn}
         className={cn(
-          'flex h-14 w-14 items-center justify-center rounded-full text-white',
+          'flex h-[72px] w-[72px] items-center justify-center rounded-full text-white',
           'bg-gradient-to-br from-brand-400 to-brand-500',
-          'shadow-glow-primary ring-4 ring-white -mt-8',
+          'shadow-glow-primary -mt-6',
         )}
       >
-        <CookingPot className="h-6 w-6" aria-hidden strokeWidth={2.2} />
+        <CookingPot className="h-7 w-7" aria-hidden strokeWidth={2.2} />
       </motion.span>
-      <span>{label}</span>
+      <span className="text-brand-500">{label}</span>
     </Link>
   );
 }
