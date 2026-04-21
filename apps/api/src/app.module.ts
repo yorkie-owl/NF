@@ -3,6 +3,7 @@ import { Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { EventEmitterModule } from '@nestjs/event-emitter';
+import { ScheduleModule } from '@nestjs/schedule';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { LoggerModule } from 'nestjs-pino';
 import { AppConfigModule } from './config/config.module';
@@ -14,6 +15,10 @@ import { PreferencesModule } from './preferences/preferences.module';
 import { InviteCodesModule } from './invite-codes/invite-codes.module';
 import { BadgesModule } from './badges/badges.module';
 import { ExternalModule } from './external/external.module';
+import { ActivitiesModule } from './activities/activities.module';
+import { ActivityEventsModule } from './activity-events/activity-events.module';
+import { ActivityStatusModule } from './activity-status/activity-status.module';
+import { ActivityFeedsModule } from './activity-feeds/activity-feeds.module';
 import type { Env } from './config/env.schema';
 
 @Module({
@@ -43,6 +48,7 @@ import type { Env } from './config/env.schema';
       useFactory: (config: ConfigService<Env, true>) => dataSourceOptions(config),
     }),
     EventEmitterModule.forRoot(),
+    ScheduleModule.forRoot(),
     ServeStaticModule.forRootAsync({
       inject: [ConfigService],
       useFactory: (config: ConfigService<Env, true>) => [
@@ -62,6 +68,10 @@ import type { Env } from './config/env.schema';
     PreferencesModule,
     InviteCodesModule,
     BadgesModule,
+    ActivitiesModule,
+    ActivityEventsModule,
+    ActivityStatusModule,
+    ActivityFeedsModule,
   ],
   controllers: [AppController],
 })

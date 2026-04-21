@@ -21,4 +21,17 @@ export * from './invite-codes/invite-code';
 export * from './badges/badge-definition';
 export * from './badges/user-badge';
 
+export * from './activities/activity';
+export * from './activities/create-activity';
+export * from './activities/list-activities';
+
+export * from './activity-events/activity-event';
+
+export * from './activity-feeds/activity-feed';
+
+export * from './ingredients/ingredient';
+
+export * from './chat/create-room';
+
 export * from './events/user.events';
+export * from './events/activity.events';
