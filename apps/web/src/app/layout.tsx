@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import type { Metadata, Viewport } from 'next';
 import { QueryProvider } from '@/providers/query-provider';
+import { ToastHost } from '@/components/common/ToastHost';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -20,7 +21,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="zh-CN">
       <body>
-        <QueryProvider>{children}</QueryProvider>
+        <QueryProvider>
+          {children}
+          <ToastHost />
+        </QueryProvider>
       </body>
     </html>
   );
