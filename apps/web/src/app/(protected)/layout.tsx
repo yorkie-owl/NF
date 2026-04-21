@@ -13,7 +13,6 @@ import { BottomNav } from '@/components/nav/BottomNav';
  * would visually clash with the dome nav.
  */
 const NAV_ROUTES = new Set([
-  '/profile',
   '/activities',
   '/activities/discover',
 ]);
