@@ -1,0 +1,16 @@
+import { chromium } from 'playwright';
+const b = await chromium.launch({ headless: true });
+const c = await b.newContext({ viewport: { width: 1440, height: 900 } });
+const p = await c.newPage();
+await p.goto('http://localhost:3001/login');
+await p.waitForTimeout(600);
+await p.getByRole('button', { name: /已有账号/ }).click();
+await p.waitForTimeout(400);
+await p.getByLabel('邮箱').fill('frank@example.com');
+await p.getByLabel('密码').fill('Password123');
+await p.locator('form button[type=submit]').click();
+await p.waitForURL('**/profile', { timeout: 10000 });
+await p.waitForTimeout(1500);
+await p.screenshot({ path: 'apps/web/e2e/debug-frame-bottomnav.png' });
+await b.close();
+console.log('DONE');

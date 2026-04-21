@@ -111,6 +111,9 @@ body {
 
   .phone-frame {
     position: relative;
+    /* 建立新的包含块，让子元素的 position:fixed 锚定到 phone-frame 而不是视口 */
+    transform: translateZ(0);
+    will-change: transform;
     width: 375px;                    /* iPhone X logical width */
     height: 812px;                   /* iPhone X logical height */
     min-height: 812px;
