@@ -29,7 +29,7 @@ export function FridgePreviewModal({ onClose }: Props) {
   const canEnter = inviteCode.trim().length > 0;
 
   return (
-    <div className="pointer-events-none absolute inset-0 z-[55] flex min-h-0 flex-col items-center justify-center px-4 py-6">
+    <div className="pointer-events-none absolute inset-0 z-[300] flex min-h-0 flex-col items-center justify-center px-4 py-6">
       <button
         type="button"
         className="pointer-events-auto absolute inset-0 z-0 bg-[#fdfbfc]/82 backdrop-blur-[3px]"

@@ -45,14 +45,8 @@ export default async function FridgeInsidePage() {
   const grid = items.length > 0 ? items : [];
 
   return (
-    <MobileShell className="relative flex flex-col !bg-transparent">
-      {/* 最底层：整屏暖色渐变（Figma 画板3），盖住默认浅灰底 */}
-      <div
-        className="pointer-events-none absolute inset-0 z-0 rounded-[2.5rem] bg-gradient-to-b from-[var(--linshi-fridge-inside-top)] via-[var(--linshi-fridge-inside-mid)] to-[var(--linshi-fridge-inside-bottom)]"
-        aria-hidden
-      />
-
-      <div className="relative z-[1] flex min-h-0 flex-1 flex-col overflow-y-auto">
+    <MobileShell className="relative flex flex-col">
+      <div className="relative flex min-h-0 flex-1 flex-col overflow-y-auto overscroll-y-contain pb-linshi-bottom-nav">
         <div className="relative min-h-full pb-6">
           <StatusBarDecor />
 

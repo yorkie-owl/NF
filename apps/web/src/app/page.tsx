@@ -33,18 +33,20 @@ const homeHeader = (
 export default function HomePage() {
   return (
     <MobileShell className="flex flex-col">
-      <StatusBarDecor />
+      <div className="flex min-h-0 flex-1 flex-col overflow-y-auto overscroll-y-contain pb-linshi-bottom-nav">
+        <StatusBarDecor />
 
-      <Suspense
-        fallback={
-          <>
-            {homeHeader}
-            <div className="relative min-h-0 flex-1 overflow-hidden px-3 pb-1 pt-2" aria-hidden />
-          </>
-        }
-      >
-        <HomeFridgeOverlay homeHeader={homeHeader} />
-      </Suspense>
+        <Suspense
+          fallback={
+            <>
+              {homeHeader}
+              <div className="relative min-h-0 flex-1 overflow-hidden px-3 pb-1 pt-2" aria-hidden />
+            </>
+          }
+        >
+          <HomeFridgeOverlay homeHeader={homeHeader} />
+        </Suspense>
+      </div>
 
       <BottomNav active="cook" />
     </MobileShell>

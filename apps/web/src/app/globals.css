@@ -1,19 +1,39 @@
 @import 'tailwindcss';
 
 :root {
-  --linshi-bg: #fdfbfc;
+  --linshi-bg: #ffffff;
   --linshi-primary: #ff4d4f;
   --linshi-gradient-from: #ffb5b5;
   --linshi-gradient-to: #ffd19d;
-  /* 画板「3」冰箱内页：自上而下偏柔的桃粉→奶油白，减少硬分段感 */
-  --linshi-fridge-inside-top: #ffe5e8;
-  --linshi-fridge-inside-mid: #fff2eb;
-  --linshi-fridge-inside-bottom: #fff9f5;
+  /* 全页统一：白底 + 顶部极淡粉洗入（与稿一致，约 0%→22% 过渡到纯白） */
+  --linshi-page-wash-top: #ffe9f0;
+  --linshi-page-wash-fade: 22%;
 }
 
 body {
   @apply min-h-[100dvh] antialiased;
-  /* 与 MobileShell 外圈一致：浅灰紫，避免纯深灰“发暗” */
-  background: #e8e5ea;
+  background-color: #ffffff;
+  background-image: linear-gradient(
+    to bottom,
+    var(--linshi-page-wash-top) 0%,
+    #ffffff var(--linshi-page-wash-fade)
+  );
   color: #171717;
+}
+
+@layer utilities {
+  /** Figma 2:6488 底栏白底区高度 165px + 安全区 */
+  .pb-linshi-bottom-nav {
+    padding-bottom: calc(165px + env(safe-area-inset-bottom, 0px));
+  }
+
+  /** 与 body 同一套顶区渐变，用于 MobileShell 内屏等需要铺底的容器 */
+  .bg-linshi-page {
+    background-color: #ffffff;
+    background-image: linear-gradient(
+      to bottom,
+      var(--linshi-page-wash-top) 0%,
+      #ffffff var(--linshi-page-wash-fade)
+    );
+  }
 }

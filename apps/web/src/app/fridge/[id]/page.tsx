@@ -25,8 +25,8 @@ export default async function FridgeInnerPage({ params }: Props) {
 
   return (
     <MobileShell className="flex flex-col">
-      <div className="flex min-h-0 flex-1 flex-col overflow-y-auto">
-        <div className="min-h-full bg-gradient-to-b from-[#ffe4e4] to-[#fdfbfc] pb-8">
+      <div className="flex min-h-0 flex-1 flex-col overflow-y-auto overscroll-y-contain pb-linshi-bottom-nav">
+        <div className="min-h-full pb-8">
           <StatusBarDecor />
 
         <header className="flex items-center gap-3 px-5 pt-1">

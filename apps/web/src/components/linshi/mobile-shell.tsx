@@ -10,9 +10,9 @@ const DESIGN_H = 844;
 
 export function MobileShell({ children, className = '' }: { children: ReactNode; className?: string }) {
   return (
-    <div className="flex w-full flex-col items-center bg-[#e8e5ea] px-3 py-6 sm:px-6 sm:py-10">
+    <div className="flex w-full flex-col items-center bg-transparent px-3 py-6 sm:px-6 sm:py-10">
       <div
-        className={`relative flex w-full max-w-[390px] min-h-0 flex-col overflow-hidden rounded-[2.5rem] border border-black/[0.05] bg-[#fdfbfc] shadow-[0_32px_120px_rgba(0,0,0,0.16)] ${className}`}
+        className={`relative flex w-full max-w-[390px] min-h-0 flex-col overflow-hidden rounded-[2.5rem] border border-black/[0.05] bg-linshi-page shadow-[0_32px_120px_rgba(0,0,0,0.12)] ${className}`}
         style={{
           width: `min(${DESIGN_W}px, calc(100vw - 24px))`,
           aspectRatio: `${DESIGN_W} / ${DESIGN_H}`,
