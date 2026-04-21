@@ -24,7 +24,7 @@ export default async function FridgeInnerPage({ params }: Props) {
   const emoji = emojiByName[ing.name] ?? '🥗';
 
   return (
-    <MobileShell className="flex flex-col">
+    <MobileShell variant="activity" className="flex flex-col">
       <div className="flex min-h-0 flex-1 flex-col overflow-y-auto overscroll-y-contain pb-linshi-bottom-nav">
         <div className="min-h-full pb-8">
           <StatusBarDecor />

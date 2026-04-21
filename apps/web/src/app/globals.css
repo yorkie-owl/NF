@@ -1,13 +1,22 @@
 @import 'tailwindcss';
 
+/* NF design-system 品牌色（activity 页 / BottomNav 同款） */
+@theme {
+  --color-brand-100: #ffe0e6;
+  --color-brand-400: #ff8fa1;
+  --color-brand-500: #ff6b8a;
+  --color-brand-600: #f7536e;
+}
+
 :root {
   --linshi-bg: #ffffff;
   --linshi-primary: #ff4d4f;
   --linshi-gradient-from: #ffb5b5;
   --linshi-gradient-to: #ffd19d;
-  /* 全页统一：白底 + 顶部极淡粉洗入（与稿一致，约 0%→22% 过渡到纯白） */
+  /* 画板 390×844：顶区仅一小条有色底（Figma 顶洗），非整屏渐变 */
   --linshi-page-wash-top: #ffe9f0;
-  --linshi-page-wash-fade: 22%;
+  /** 有色带高度 ≈ 画板高 844 的 12%（~101px，取整 104px 对齐稿） */
+  --linshi-page-wash-band: 104px;
 }
 
 body {
@@ -16,8 +25,11 @@ body {
   background-image: linear-gradient(
     to bottom,
     var(--linshi-page-wash-top) 0%,
-    #ffffff var(--linshi-page-wash-fade)
+    #ffffff 100%
   );
+  background-size: 100% var(--linshi-page-wash-band);
+  background-repeat: no-repeat;
+  background-position: top center;
   color: #171717;
 }
 
@@ -27,13 +39,24 @@ body {
     padding-bottom: calc(165px + env(safe-area-inset-bottom, 0px));
   }
 
-  /** 与 body 同一套顶区渐变，用于 MobileShell 内屏等需要铺底的容器 */
+  /**
+   * 与 body 同一套「仅顶部一条」渐变：粉→白只发生在有色带高度内，
+   * 以下整屏为纯白（对齐 Figma，非 22% 视口大洗入）。
+   */
   .bg-linshi-page {
     background-color: #ffffff;
     background-image: linear-gradient(
       to bottom,
       var(--linshi-page-wash-top) 0%,
-      #ffffff var(--linshi-page-wash-fade)
+      #ffffff 100%
     );
+    background-size: 100% var(--linshi-page-wash-band);
+    background-repeat: no-repeat;
+    background-position: top center;
+  }
+
+  /** NF PotButton / 主按钮外发光 */
+  .shadow-glow-primary {
+    box-shadow: 0 8px 24px rgba(255, 107, 138, 0.35);
   }
 }

@@ -7,17 +7,10 @@ const nextConfig: NextConfig = {
    * Turbopack 在部分 Win 环境会写 `_buildManifest.js.tmp.*` 时竞态 → ENOENT。
    */
   /**
-   * Next 默认使用 `cache.type: 'filesystem'`（.next/cache/webpack/*.pack.gz）。
-   * Windows 上易被并发/杀软/半删目录搞坏 → ENOENT → 模块表错乱 → __webpack_modules__ is not a function。
-   * 开发态改为 **memory**，不落盘 pack，避免 PackFileCacheStrategy。
-   * （`cache: false` 在部分路径仍会与内部逻辑打架；memory 更稳。）
+   * 勿在 dev 里改 `config.cache` 为 `memory`：在 Next 15 + Windows 上曾出现
+   * `.next/server/webpack-runtime.js` 引用缺失的 `./NNN.js` → MODULE_NOT_FOUND、
+   * `reading '/_app'`。使用 Next 默认缓存；若遇 ENOENT，执行 `pnpm clean` 后重启。
    */
-  webpack: (config, { dev }) => {
-    if (dev) {
-      config.cache = { type: 'memory', maxGenerations: 1 };
-    }
-    return config;
-  },
   /** 关闭底部 dev 指示器（与 Segment Explorer 无关，仅减少干扰） */
   devIndicators: false,
   /**

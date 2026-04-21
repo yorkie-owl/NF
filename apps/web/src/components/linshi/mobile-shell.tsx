@@ -8,11 +8,24 @@ import type { ReactNode } from 'react';
 const DESIGN_W = 390;
 const DESIGN_H = 844;
 
-export function MobileShell({ children, className = '' }: { children: ReactNode; className?: string }) {
+type ShellVariant = 'linshi' | 'activity';
+
+export function MobileShell({
+  children,
+  className = '',
+  variant = 'linshi',
+}: {
+  children: ReactNode;
+  className?: string;
+  /** `activity`：对齐 NF `(protected)` 里 activity 列表页同款 `bg-neutral-50` */
+  variant?: ShellVariant;
+}) {
+  const surface = variant === 'activity' ? 'bg-neutral-50' : 'bg-linshi-page';
+
   return (
     <div className="flex w-full flex-col items-center bg-transparent px-3 py-6 sm:px-6 sm:py-10">
       <div
-        className={`relative flex w-full max-w-[390px] min-h-0 flex-col overflow-hidden rounded-[2.5rem] border border-black/[0.05] bg-linshi-page shadow-[0_32px_120px_rgba(0,0,0,0.12)] ${className}`}
+        className={`relative flex w-full max-w-[390px] min-h-0 flex-col overflow-hidden rounded-[2.5rem] border border-black/[0.05] ${surface} shadow-[0_32px_120px_rgba(0,0,0,0.12)] ${className}`}
         style={{
           width: `min(${DESIGN_W}px, calc(100vw - 24px))`,
           aspectRatio: `${DESIGN_W} / ${DESIGN_H}`,
