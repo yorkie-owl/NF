@@ -39,7 +39,7 @@ type InviteForm = z.infer<typeof InviteSchema>;
 const AuthSchema = z.object({
   email: z.string().email('邮箱格式不对'),
   password: z.string().min(8, '密码至少 8 位').max(64),
-  nickname: z.string().min(1, '昵称不能为空').max(20, '昵称最多 20 字').optional(),
+  nickname: z.string().max(20, '昵称最多 20 字').optional(),
 });
 type AuthForm = z.infer<typeof AuthSchema>;
 
