@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { useEffect, type ReactNode } from 'react';
 import { HTTPError } from '@/lib/api';
-import { getAccessToken } from '@/lib/auth';
+import { clearTokens, getAccessToken } from '@/lib/auth';
 import { useMe } from '@/hooks/use-me';
 import { BottomNav } from '@/components/nav/BottomNav';
 
@@ -21,6 +21,8 @@ export default function ProtectedLayout({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (error && error instanceof HTTPError && error.response.status === 401) {
+      // Clear stale tokens before bouncing — otherwise /login will see them and bounce back (loop).
+      clearTokens();
       router.replace('/login');
     }
   }, [error, router]);
