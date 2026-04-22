@@ -1,10 +1,29 @@
-import { Body, Controller, Get, Post, Query, UnauthorizedException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  Get,
+  Post,
+  Query,
+  UnauthorizedException,
+  UploadedFile,
+  UseInterceptors,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { z } from 'zod';
 import { IngredientsService } from './ingredients.service';
 
 const ByIdsBodySchema = z.object({
   ids: z.array(z.string().uuid()),
+});
+
+const CreateIngredientBodySchema = z.object({
+  userId: z.string().uuid(),
+  name: z.string().min(1),
+  category: z.string().nullable().optional().default(null),
+  tasteTags: z.array(z.string()).default([]),
+  recognizedFromImageUrl: z.string().url().nullable().optional().default(null),
 });
 
 @Controller()
@@ -31,13 +50,24 @@ export class IngredientsController {
     return { items: this.ingredients.getByIds(ids) };
   }
 
+  /** 契约 §7.1：multipart 字段名 `file` */
   @Post('ingredients/recognize')
-  recognize() {
-    return {
-      recognized: [
-        { name: '青椒', confidence: 0.92, tasteTags: ['清爽', '微辣'] },
-        { name: '土豆', confidence: 0.88, tasteTags: ['淀粉', '饱腹'] },
-      ],
-    };
+  @UseInterceptors(
+    FileInterceptor('file', {
+      limits: { fileSize: 12 * 1024 * 1024 },
+    }),
+  )
+  async recognize(@UploadedFile() file: Express.Multer.File | undefined) {
+    if (!file?.size) {
+      throw new BadRequestException('file required (multipart field: file)');
+    }
+    return this.ingredients.recognizeFromUpload(file);
+  }
+
+  /** 将识别结果写入 mock 食材列表（与 DEMO_USER 流程一致；队友接库后替换为持久化） */
+  @Post('ingredients')
+  create(@Body() body: unknown) {
+    const parsed = CreateIngredientBodySchema.parse(body);
+    return { item: this.ingredients.addIngredient(parsed) };
   }
 }

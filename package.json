@@ -3,9 +3,10 @@
   "private": true,
   "packageManager": "pnpm@9.15.0",
   "scripts": {
-    "dev:api": "pnpm --filter @lin-shi/api dev",
-    "dev:web": "pnpm --filter @lin-shi/web dev",
-    "build": "pnpm -r build",
+    "build:contracts": "pnpm --filter @lin-shi/contracts build",
+    "dev:api": "pnpm build:contracts && pnpm --filter @lin-shi/api dev",
+    "dev:web": "pnpm build:contracts && pnpm --filter @lin-shi/web dev",
+    "build": "pnpm build:contracts && pnpm --filter @lin-shi/api build && pnpm --filter @lin-shi/web build",
     "lint": "pnpm -r lint",
     "typecheck": "pnpm -r typecheck",
     "db:up": "docker compose up -d postgres",

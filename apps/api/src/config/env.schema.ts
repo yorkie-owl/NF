@@ -18,8 +18,45 @@ export const envSchema = z.object({
   UPLOADS_DIR: z.string().default('./uploads'),
   UPLOADS_PUBLIC_URL: z.string().url(),
 
-  AI_VISION_API_KEY: z.string().optional(),
-  AI_VISION_ENDPOINT: z.string().url().optional(),
+  /** 空串视为未配置（.env 里常写 `AI_VISION_ENDPOINT=`） */
+  AI_VISION_API_KEY: z.preprocess(
+    (v) => (v === '' || v === undefined ? undefined : v),
+    z.string().optional(),
+  ),
+  AI_VISION_ENDPOINT: z.preprocess(
+    (v) => (v === '' || v === undefined ? undefined : v),
+    z.string().url().optional(),
+  ),
+
+  /** CulinaBot `web_test.py` 基址，如 `http://127.0.0.1:7860`；不配置则识图为 mock */
+  CULINABOT_URL: z.preprocess(
+    (v) => (v === '' || v === undefined ? undefined : v),
+    z.string().url().optional(),
+  ),
+  /** 多模态 Key：见阶跃开放平台 [接口密钥](https://platform.stepfun.com/interface-key) 或火山等提供方 */
+  CULINABOT_LLM_API_KEY: z.preprocess(
+    (v) => (v === '' || v === undefined ? undefined : v),
+    z.string().optional(),
+  ),
+  /** OpenAI 兼容 Base URL。阶跃视觉示例：`https://api.stepfun.com/v1`（[快速开始](https://platform.stepfun.com/docs/zh/quickstart/overview)） */
+  CULINABOT_LLM_BASE_URL: z.preprocess(
+    (v) => (v === '' || v === undefined ? undefined : v),
+    z.string().url().optional(),
+  ),
+  /** 识图建议：`step-1o-turbo-vision`（[图片理解 / 视觉模型](https://platform.stepfun.com/docs/zh/guides/developer/image-chat)） */
+  CULINABOT_LLM_MODEL: z.preprocess(
+    (v) => (v === '' || v === undefined ? undefined : v),
+    z.string().optional(),
+  ),
+  CULINABOT_TAVILY_API_KEY: z.preprocess(
+    (v) => (v === '' || v === undefined ? undefined : v),
+    z.string().optional(),
+  ),
+  CULINABOT_QUESTION: z.preprocess(
+    (v) => (v === '' || v === undefined ? undefined : v),
+    z.string().optional(),
+  ),
+
   RECIPE_API_KEY: z.string().optional(),
   MATCH_LLM_API_KEY: z.string().optional(),
   SOCKET_CORS_ORIGIN: z.string().optional(),

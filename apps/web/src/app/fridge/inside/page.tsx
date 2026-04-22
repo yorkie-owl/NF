@@ -30,6 +30,8 @@ const emojiByName: Record<string, string> = {
   洋葱: '🧅',
   葡萄: '🍇',
   牛奶: '🥛',
+  青椒: '🫑',
+  土豆: '🥔',
 };
 
 type GridCell = { id?: string; name: string; emoji: string; gone: boolean };
@@ -38,16 +40,18 @@ function IngredientCell({ cell }: { cell: GridCell }) {
   const inner = (
     <>
       <div
-        className={`relative flex h-[52px] w-[52px] items-center justify-center rounded-xl bg-white shadow-md ring-1 ring-black/[0.06] ${cell.gone ? 'opacity-45 grayscale' : ''}`}
+        className={`relative flex h-[40px] w-[40px] items-center justify-center rounded-[10px] bg-white shadow-md ring-1 ring-black/[0.06] sm:h-[44px] sm:w-[44px] ${cell.gone ? 'opacity-45 grayscale' : ''}`}
       >
-        <span className="text-2xl">{cell.emoji}</span>
+        <span className="text-lg sm:text-xl">{cell.emoji}</span>
         {cell.gone ? (
           <span className="absolute -right-1 -top-1 rounded-full bg-pink-400 px-1.5 py-0.5 text-[9px] font-medium text-white">
             出走
           </span>
         ) : null}
       </div>
-      <span className="max-w-[52px] truncate text-center text-[9px] leading-tight text-neutral-700">{cell.name}</span>
+      <span className="max-w-[44px] truncate text-center text-[8px] leading-tight text-neutral-700 sm:max-w-[48px] sm:text-[9px]">
+        {cell.name}
+      </span>
     </>
   );
 
@@ -70,7 +74,7 @@ function buildGrid(items: Ingredient[], error: string | null): { cells: GridCell
     return { cells: FIGMA_DEMO_GRID, showError: false };
   }
   return {
-    cells: items.slice(0, 9).map((ing) => ({
+    cells: items.slice(0, 10).map((ing) => ({
       id: ing.id,
       name: ing.name,
       emoji: emojiByName[ing.name] ?? '🥬',
@@ -161,19 +165,19 @@ export default async function FridgeInsidePage() {
               {showError ? (
                 <p className="mb-2 text-[10px] font-medium text-orange-500/90">{error}</p>
               ) : null}
-              <div className="grid grid-cols-3 gap-x-1 gap-y-3">
+              <div className="grid grid-cols-5 gap-x-0.5 gap-y-2">
                 {cells.map((cell, i) => (
                   <IngredientCell key={cell.id ?? `${cell.name}-${i}`} cell={cell} />
                 ))}
               </div>
 
-              <button
-                type="button"
+              <Link
+                href="/fridge/recognize"
                 className="mt-3 flex w-full items-center justify-center gap-2 rounded-2xl border border-neutral-200/90 bg-white py-2.5 text-[12px] font-medium text-neutral-600 shadow-sm"
               >
                 <Camera className="h-4 w-4" />
                 拍照识别食材
-              </button>
+              </Link>
             </div>
           </div>
         </div>
