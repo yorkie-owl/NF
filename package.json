@@ -6,6 +6,9 @@
     "build:contracts": "pnpm --filter @lin-shi/contracts build",
     "dev:api": "pnpm build:contracts && pnpm --filter @lin-shi/api dev",
     "dev:web": "pnpm build:contracts && pnpm --filter @lin-shi/web dev",
+    "dev:culina": "pnpm --filter @lin-shi/culina-server dev",
+    "build:culina-agent": "pnpm --filter @lin-shi/culina-agent build",
+    "demo:culina": "pnpm --filter @lin-shi/culina-agent run demo",
     "build": "pnpm build:contracts && pnpm --filter @lin-shi/api build && pnpm --filter @lin-shi/web build",
     "lint": "pnpm -r lint",
     "typecheck": "pnpm -r typecheck",
@@ -16,5 +19,11 @@
   "engines": {
     "node": ">=22.0.0",
     "pnpm": ">=9.0.0"
+  },
+  "pnpm": {
+    "overrides": {
+      "react": "19.2.5",
+      "react-dom": "19.2.5"
+    }
   }
 }

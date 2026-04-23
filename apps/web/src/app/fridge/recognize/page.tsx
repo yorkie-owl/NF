@@ -6,11 +6,7 @@ import { useCallback, useEffect, useId, useRef, useState } from 'react';
 import { Camera, ChevronLeft, ImageIcon } from 'lucide-react';
 import { MobileShell } from '@/components/linshi/mobile-shell';
 import { StatusBarDecor } from '@/components/linshi/status-bar';
-import {
-  type RecognizedPreview,
-  createIngredientOnServer,
-  recognizeIngredientsFromImage,
-} from '@/lib/ingredients';
+import { recognizeIngredientsFromImage, type RecognizedPreview } from '@/lib/ingredients-recognize';
 import { extractApiError } from '@/lib/api';
 
 type Phase = 'idle' | 'recognizing' | 'results' | 'saving';
@@ -254,6 +250,7 @@ export default function FridgeRecognizePage() {
     setError(null);
     setPhase('saving');
     try {
+      const { createIngredientOnServer } = await import('@/lib/ingredients');
       for (let i = 0; i < recognized.length; i++) {
         if (!selected.has(i)) continue;
         const r = recognized[i]!;

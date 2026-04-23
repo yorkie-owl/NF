@@ -2,18 +2,10 @@ import { IngredientSchema, type Ingredient } from '@lin-shi/contracts';
 import { z } from 'zod';
 import { api } from './api';
 
+export { recognizeIngredientsFromImage, type RecognizedPreview } from './ingredients-recognize';
+
 const ListResponseSchema = z.object({
   items: z.array(IngredientSchema),
-});
-
-const RecognizedItemSchema = z.object({
-  name: z.string(),
-  confidence: z.number(),
-  tasteTags: z.array(z.string()),
-});
-
-const RecognizeResponseSchema = z.object({
-  recognized: z.array(RecognizedItemSchema),
 });
 
 const CreateIngredientResponseSchema = z.object({
@@ -35,15 +27,6 @@ export async function fetchIngredients(): Promise<Ingredient[]> {
 export async function fetchIngredientById(id: string): Promise<Ingredient | undefined> {
   const items = await fetchIngredients();
   return items.find((i) => i.id === id);
-}
-
-export type RecognizedPreview = z.infer<typeof RecognizedItemSchema>;
-
-export async function recognizeIngredientsFromImage(file: File) {
-  const form = new FormData();
-  form.append('file', file);
-  const json: unknown = await api.post('ingredients/recognize', { body: form }).json();
-  return RecognizeResponseSchema.parse(json).recognized;
 }
 
 export async function createIngredientOnServer(input: {

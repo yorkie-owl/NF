@@ -25,4 +25,7 @@ export * from './credit/credit';
 export * from './events/activity.events';
 export * from './events/user.events';
 export * from './ingredients/ingredient';
+export * from './ingredients/culinabot-answer';
+export * from './ingredients/recognition-prompts';
+export * from './ingredients/culinabot-full-prompts';
 export * from './matching/matched-activity';

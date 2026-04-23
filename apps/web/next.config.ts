@@ -1,9 +1,11 @@
 import type { NextConfig } from 'next';
-import path from 'path';
 
 const nextConfig: NextConfig = {
-  turbopack: {
-    root: path.resolve(__dirname, '../..'),
+  /** CJS 包在 Webpack 下与 App Router 混用时的兼容 */
+  transpilePackages: ['@lin-shi/contracts'],
+  experimental: {
+    /** 避免 lucide 大 barrel 在 Webpack 下解析异常 */
+    optimizePackageImports: ['lucide-react'],
   },
   images: {
     remotePatterns: [

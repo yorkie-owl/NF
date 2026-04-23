@@ -28,11 +28,21 @@ export const envSchema = z.object({
     z.string().url().optional(),
   ),
 
-  /** CulinaBot `web_test.py` 基址，如 `http://127.0.0.1:7860`；不配置则识图为 mock */
+  /** Culina 独立 HTTP 基址，如 `http://127.0.0.1:7860`；若设此值则只走 `POST /api/test` 转发。不设且配齐 LLM 时可用进程内 TS 包 */
   CULINABOT_URL: z.preprocess(
     (v) => (v === '' || v === undefined ? undefined : v),
     z.string().url().optional(),
   ),
+  /**
+   * 为 true 且未设 CULINABOT_URL 时，在进程内用 `@lin-shi/culina-agent` 跑完整 ReAct+Tavily；
+   * 为 false 则除 mock 外仅能通过 CULINABOT_URL 访问外部 `web_test` 兼容服务。
+   */
+  CULINABOT_USE_TYPESCRIPT: z
+    .preprocess(
+      (v) => (v === '' || v === undefined ? 'true' : v),
+      z.enum(['true', 'false']),
+    )
+    .transform((v) => v === 'true'),
   /** 多模态 Key：见阶跃开放平台 [接口密钥](https://platform.stepfun.com/interface-key) 或火山等提供方 */
   CULINABOT_LLM_API_KEY: z.preprocess(
     (v) => (v === '' || v === undefined ? undefined : v),

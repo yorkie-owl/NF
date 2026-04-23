@@ -1,4 +1,4 @@
-/** 与 §7.1 及 IngredientsService 中 RecognizedItem 同构 */
+/** 与 §7.1 及 IngredientsService 中 RecognizedItem 同构；供 API / Next 识图共用的解析。 */
 export type ParsedRecognizedItem = {
   name: string;
   confidence: number;
@@ -21,7 +21,7 @@ function isPlausibleIngredientName(name: string): boolean {
 }
 
 /**
- * 从 CulinaBot `/api/test` 返回的长文本中尽量恢复 §7.1 的 `recognized` 列表。
+ * 从 CulinaBot `/api/test` 或直连多模态 LLM 返回的长文本中恢复 §7.1 的 `recognized` 列表。
  * 优先解析 JSON；否则按顿号/逗号/换行拆分食材名。
  */
 export function parseCulinaBotAnswerToRecognized(answer: string): ParsedRecognizedItem[] {

@@ -17,6 +17,7 @@
     "test": "node --require ts-node/register --test test/**/*.spec.ts"
   },
   "dependencies": {
+    "@lin-shi/culina-agent": "workspace:*",
     "@lin-shi/contracts": "workspace:*",
     "@nestjs/common": "^10.4.15",
     "@nestjs/config": "^3.2.3",
