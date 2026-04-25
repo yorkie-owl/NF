@@ -236,7 +236,7 @@ export default function ProfileEditPage() {
           <Field id="bio" label="一句话" error={errors.bio?.message}>
             <Input
               id="bio"
-              placeholder="喜欢钻研菜谱，下班了就做饭"
+              placeholder="一个想做独立咖啡馆的产品 + 半年甜品店运营"
               invalid={Boolean(errors.bio)}
               {...register('bio')}
             />

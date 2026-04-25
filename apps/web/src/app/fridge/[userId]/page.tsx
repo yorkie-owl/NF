@@ -48,9 +48,9 @@ export default async function FridgeInnerPage({ params }: Props) {
         </header>
 
         <div className="px-5 pt-4">
-          <p className="text-[11px] font-medium uppercase tracking-wider text-rose-400/90">食材详情</p>
+          <p className="text-[11px] font-medium uppercase tracking-wider text-rose-400/90">idea 详情</p>
           <h1 className="mt-1 text-2xl font-bold text-neutral-900">{ing.name}</h1>
-          <p className="mt-1 text-[11px] text-neutral-500">设定探索偏好，让 TA 带着标签去「散步」</p>
+          <p className="mt-1 text-[11px] text-neutral-500">给 TA 打风格 + 场景标签，让 TA 自己出门找拼桌</p>
 
           <IngredientFridgeDetailClient ingredient={ing} logoEmoji={emoji} />
 

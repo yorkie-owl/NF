@@ -9,7 +9,9 @@ import { matchIdeas } from '@/lib/opc-agent';
 import { IdeaWalkOut } from '@/components/idea/IdeaWalkOut';
 import { getDemoIngredientByName } from '@/lib/demo-ingredients';
 
-const DEMO_IDEAS: ReadonlyArray<OpcIdeaCard> = (['番茄', '鸡蛋'] as const).flatMap((name) => {
+const DEMO_IDEAS: ReadonlyArray<OpcIdeaCard> = (
+  ['咖啡馆 MVP', 'React 全栈底子'] as const
+).flatMap((name) => {
   const ing = getDemoIngredientByName(name);
   if (!ing) return [];
   return [
