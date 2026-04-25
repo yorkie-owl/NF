@@ -83,10 +83,12 @@ const server = createServer(async (req, res) => {
       const c = x as { name: string; styleTags: string[]; sceneTags: string[]; description?: string };
       return { name: c.name, styleTags: c.styleTags, sceneTags: c.sceneTags, description: c.description ?? '' };
     });
+    // Server-side env fallback keeps the LLM key out of the browser bundle.
+    // Client may omit api_key/base_url/model entirely; server uses its own env.
     const result = await runOpcMatch({
-      api_key: String(b.api_key ?? ''),
-      base_url: String(b.base_url ?? ''),
-      model: String(b.model ?? ''),
+      api_key: String(b.api_key ?? process.env.OPC_AGENT_KEY ?? ''),
+      base_url: String(b.base_url ?? process.env.OPC_AGENT_BASE_URL ?? ''),
+      model: String(b.model ?? process.env.OPC_AGENT_MODEL ?? ''),
       ideas,
     });
     const status = result.ok ? 200 : 500;

@@ -12,18 +12,18 @@ async function readCache(): Promise<OpcMatchResult> {
 /**
  * 调真 LLM 匹配；3s 内未回则 race 输给 cache。
  * cache 赢时 abort live fetch，避免后台多跑一次 LLM 调用与丢弃响应。
+ *
+ * 设计：客户端不持有任何 LLM key。请求体只带 ideas，由 culina-server
+ * 用进程 env (OPC_AGENT_*) 调真 LLM。这样 demo 网页 bundle 里完全没有 token。
+ *
+ * 启用真调用：在启 culina-server 时设三个环境变量
+ *   OPC_AGENT_KEY / OPC_AGENT_BASE_URL / OPC_AGENT_MODEL
+ * 否则 server 会在 ~30ms 内返回 ok=false，客户端 race 输给 cache。
  */
 export async function matchIdeas(ideas: OpcIdeaCard[]): Promise<{
   result: OpcMatchResult;
   source: 'live' | 'cache';
 }> {
-  const apiKey = process.env.NEXT_PUBLIC_OPC_AGENT_KEY ?? '';
-  const baseUrl = process.env.NEXT_PUBLIC_OPC_AGENT_BASE_URL ?? '';
-  const model = process.env.NEXT_PUBLIC_OPC_AGENT_MODEL ?? '';
-  if (!apiKey || !baseUrl || !model) {
-    return { result: await readCache(), source: 'cache' };
-  }
-
   const ac = new AbortController();
   let timer: ReturnType<typeof setTimeout> | null = null;
 
@@ -31,7 +31,7 @@ export async function matchIdeas(ideas: OpcIdeaCard[]): Promise<{
     const r = await fetch(`${SERVER}/api/opc-match`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ api_key: apiKey, base_url: baseUrl, model, ideas }),
+      body: JSON.stringify({ ideas }),
       signal: ac.signal,
     });
     const j = (await r.json()) as { ok: boolean; result?: OpcMatchResult; error?: string };
