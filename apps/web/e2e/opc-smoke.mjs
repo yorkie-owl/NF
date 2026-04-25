@@ -91,12 +91,14 @@ async function runOne(vp) {
     await shoot(page, vp.name, '05-frame4-activities-new');
     record('Frame 4 · 跳到 /activities/new', 'PASS');
 
-    // Step 6: → frame 5 (activities)
+    // Step 6: → frame 5 (activity detail with AgentBubble + RetroCard)
     await page.keyboard.press('ArrowRight');
-    await page.waitForURL((u) => u.pathname.startsWith('/activities'), { timeout: 10_000 });
-    await page.waitForSelector('text=/Frame 5/', { timeout: 5_000 });
-    await shoot(page, vp.name, '06-frame5-activities');
-    record('Frame 5 · 跳到活动列表', 'PASS');
+    await page.waitForURL((u) => /\/activities\/[0-9a-f-]+/.test(u.pathname), { timeout: 30_000 });
+    await page.waitForSelector('text=/Frame 5/', { timeout: 15_000 });
+    await page.waitForSelector('text=/局长助理/', { timeout: 10_000 });
+    await page.waitForSelector('text=/本桌复盘/', { timeout: 10_000 });
+    await shoot(page, vp.name, '06-frame5-activity-detail-bubble-retro');
+    record('Frame 5 · 活动详情含 AgentBubble + RetroCard', 'PASS');
 
     // Step 7: → frame 6 (fridge home) — server component fetches ingredients;
     // wait only until URL commits, then poll for narration text.

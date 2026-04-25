@@ -35,7 +35,7 @@ export const STORYBOARD_FRAMES: ReadonlyArray<StoryboardFrame> = [
   },
   {
     id: 5,
-    route: '/activities',
+    route: '/activities/11111111-0000-4000-8000-000000000004',
     narration: '局长助理是你的 agent 同事：5 分钟破冰、第一周里程碑、结束复盘——它一直在桌上。',
   },
   {
