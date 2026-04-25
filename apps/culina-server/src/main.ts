@@ -1,5 +1,6 @@
 import { createServer } from 'node:http';
 import { runCulinaPostApiTest } from '@lin-shi/culina-agent';
+import { runOpcMatch } from '@lin-shi/culina-agent';
 
 const HOST = process.env.CULINABOT_HOST ?? '127.0.0.1';
 const PORT = Number(process.env.CULINABOT_PORT ?? 7860);
@@ -28,6 +29,14 @@ Content-Type: application/json
 </html>`;
 
 const server = createServer(async (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  if (req.method === 'OPTIONS') {
+    res.writeHead(204);
+    res.end();
+    return;
+  }
   const url = req.url?.split('?')[0] ?? '';
   if (req.method === 'GET' && url === '/') {
     res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
@@ -49,6 +58,37 @@ const server = createServer(async (req, res) => {
       return;
     }
     const result = await runCulinaPostApiTest(body);
+    const status = result.ok ? 200 : 500;
+    res.writeHead(status, { 'Content-Type': 'application/json; charset=utf-8' });
+    res.end(JSON.stringify(result));
+    return;
+  }
+  if (req.method === 'POST' && url === '/api/opc-match') {
+    const chunks: Buffer[] = [];
+    for await (const c of req) {
+      chunks.push(c as Buffer);
+    }
+    let body: unknown = {};
+    try {
+      const raw = Buffer.concat(chunks).toString('utf8');
+      body = raw ? (JSON.parse(raw) as unknown) : {};
+    } catch {
+      res.writeHead(400, { 'Content-Type': 'application/json; charset=utf-8' });
+      res.end(JSON.stringify({ ok: false, error: 'Invalid JSON' }));
+      return;
+    }
+    const b = body as Record<string, unknown>;
+    const ideasRaw = Array.isArray(b.ideas) ? b.ideas : [];
+    const ideas = ideasRaw.map((x) => {
+      const c = x as { name: string; styleTags: string[]; sceneTags: string[]; description?: string };
+      return { name: c.name, styleTags: c.styleTags, sceneTags: c.sceneTags, description: c.description ?? '' };
+    });
+    const result = await runOpcMatch({
+      api_key: String(b.api_key ?? ''),
+      base_url: String(b.base_url ?? ''),
+      model: String(b.model ?? ''),
+      ideas,
+    });
     const status = result.ok ? 200 : 500;
     res.writeHead(status, { 'Content-Type': 'application/json; charset=utf-8' });
     res.end(JSON.stringify(result));
