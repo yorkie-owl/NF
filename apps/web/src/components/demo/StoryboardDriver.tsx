@@ -96,8 +96,8 @@ export function StoryboardDriver() {
     <>
       <IdeaWalkOut
         visible={walkOut}
-        emoji="🍅"
-        name="番茄"
+        emoji="💡"
+        name="咖啡馆 MVP"
         startX={window.innerWidth / 2 - 24}
         startY={window.innerHeight / 2 - 24}
         onDone={() => setWalkOut(false)}
