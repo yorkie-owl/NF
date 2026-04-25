@@ -96,7 +96,11 @@ body {
 
 .phone-frame {
   width: 100%;
-  min-height: 100vh;
+  /* Definite height so h-full / min-h-full descendants resolve and the
+     in-flow BottomNav (absolute bottom-0 inside fridge wrappers) anchors
+     to the visible viewport bottom on mobile. dvh adapts to the address
+     bar so we don't get the iOS-Safari "floating nav" bug. */
+  height: 100dvh;
 }
 
 @media (min-width: 900px) {
