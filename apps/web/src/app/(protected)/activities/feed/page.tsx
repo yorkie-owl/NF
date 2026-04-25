@@ -44,7 +44,7 @@ export default function FeedPage() {
         >
           <ArrowLeft className="h-4 w-4 text-neutral-700" />
         </button>
-        <h1 className="text-[22px] font-bold text-neutral-900">这几锅饭</h1>
+        <h1 className="text-[22px] font-bold text-neutral-900">这几桌协作</h1>
       </header>
 
       {/* Tabs */}

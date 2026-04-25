@@ -65,7 +65,7 @@ export default function FriendPreferencesPage() {
     };
     try {
       await update.mutateAsync(payload);
-      toast.success('交友偏好已更新');
+      toast.success('协作偏好已更新');
       router.replace('/profile');
     } catch (err) {
       const apiErr = await extractApiError(err);
@@ -97,7 +97,7 @@ export default function FriendPreferencesPage() {
           <ChevronLeft className="h-5 w-5 text-neutral-700" />
         </button>
         <h1 className="text-[20px] font-semibold text-neutral-900">
-          交友偏好
+          协作偏好（社交）
         </h1>
       </div>
 
@@ -108,7 +108,7 @@ export default function FriendPreferencesPage() {
               接受陌生人
             </p>
             <p className="mt-1 text-[12px] text-neutral-500">
-              允许完全陌生的邻居加入我的锅
+              允许完全陌生的 OPC 加入我的局
             </p>
           </div>
           <Switch
@@ -144,7 +144,7 @@ export default function FriendPreferencesPage() {
       <section className="mt-4 rounded-2xl border border-white/70 bg-white/70 p-5 shadow-sm backdrop-blur">
         <p className="text-[15px] font-medium text-neutral-900">时间偏好</p>
         <p className="mt-1 text-[12px] text-neutral-500">
-          选择你平时愿意参与饭局的时段
+          选择你平时愿意参与协作的时段
         </p>
         <div className="mt-4">
           <TimeSlotPicker value={presets} onChange={setPresets} />

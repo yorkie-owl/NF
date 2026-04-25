@@ -52,23 +52,15 @@ export const ACTIVITY_STATUS_STYLE: Record<ActivityStatus, ActivityStatusStyle> 
 };
 
 /**
- * Pick a food emoji from an activity title. Falls back to generic cooking pan.
+ * Pick an OPC abstract emoji from a 局 title. Falls back to a handshake.
  */
 export function activityEmoji(title: string): string {
   const t = title;
-  if (/饺子/.test(t)) return '🥟';
-  if (/面|拉面|意面/.test(t)) return '🍜';
-  if (/汤|煲/.test(t)) return '🍲';
-  if (/火锅/.test(t)) return '🍲';
-  if (/寿司/.test(t)) return '🍣';
-  if (/烧烤|烤肉/.test(t)) return '🍖';
-  if (/披萨|pizza/i.test(t)) return '🍕';
-  if (/沙拉/.test(t)) return '🥗';
-  if (/饭|炒饭/.test(t)) return '🍚';
-  if (/早餐|早午餐|brunch/i.test(t)) return '🥐';
-  if (/咖啡|下午茶/.test(t)) return '☕';
-  if (/蛋糕|甜品/.test(t)) return '🍰';
-  return '🍳';
+  if (/MVP|原型|工程|开发|代码|prototype/i.test(t)) return '🛠️';
+  if (/idea|想法|灵感|脑暴|brainstorm/i.test(t)) return '💡';
+  if (/目标|计划|路线|roadmap|OKR/i.test(t)) return '🎯';
+  if (/钉|锁定|跟进|pin/i.test(t)) return '📌';
+  return '🤝';
 }
 
 /**

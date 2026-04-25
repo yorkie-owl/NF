@@ -218,10 +218,10 @@ export default function ActivityDetailPage() {
       {/* System-recommended dish (fallback) */}
       <section className="mt-3 rounded-2xl bg-gradient-warm p-4 shadow-sm">
         <p className="text-[13px] font-semibold text-neutral-900">
-          🍅 系统推荐菜
+          💡 推荐协作方向
         </p>
         <p className="mt-1 text-[13px] text-neutral-700">
-          系统推荐菜 · {activity.title}
+          推荐协作方向 · {activity.title}
         </p>
       </section>
 
@@ -230,7 +230,7 @@ export default function ActivityDetailPage() {
         activity.ingredients.length > 0) && (
         <section className="mt-3 rounded-2xl bg-white p-4 shadow-sm">
           <p className="text-[13px] font-semibold text-neutral-900">
-            🥬 这锅的食材
+            🛠️ 这桌的能力清单
           </p>
           <div className="mt-3 flex flex-wrap gap-2">
             {activity.manualIngredients.map((ing) => (
@@ -337,7 +337,7 @@ export default function ActivityDetailPage() {
                 className="flex-1"
               >
                 <MessageCircle className="h-5 w-5" />
-                去聊这锅
+                去聊这桌
               </Button>
               {activity.status === 'WAITING_FOR_MEMBERS' ? (
                 <Link href="/invite" className="shrink-0">
@@ -358,7 +358,7 @@ export default function ActivityDetailPage() {
                 className="flex-1"
               >
                 <MessageCircle className="h-5 w-5" />
-                去聊这锅
+                去聊这桌
               </Button>
               <Button
                 variant="secondary"
@@ -379,7 +379,7 @@ export default function ActivityDetailPage() {
               className="bg-success-500 hover:opacity-95"
             >
               <Utensils className="h-5 w-5" />
-              加入这锅 🍲
+              加入这桌 🤝
             </Button>
           )}
         </div>

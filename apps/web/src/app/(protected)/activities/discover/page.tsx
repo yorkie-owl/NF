@@ -150,7 +150,7 @@ export default function DiscoverActivitiesPage() {
           href="/activities"
           className="pb-2 text-[14px] font-medium text-neutral-500 hover:text-neutral-700"
         >
-          我的锅
+          我的局
         </Link>
         <span className="pb-2 text-[14px] font-semibold text-brand-500 border-b-2 border-brand-500">
           全部活动
@@ -218,7 +218,7 @@ export default function DiscoverActivitiesPage() {
         ) : !data || data.items.length === 0 ? (
           <div className="mt-10 rounded-2xl bg-white p-8 text-center shadow-sm">
             <span className="text-[40px]" aria-hidden>
-              🍽️
+              🤝
             </span>
             <p className="mt-2 text-[14px] text-neutral-500">
               没有符合条件的活动

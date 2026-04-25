@@ -17,10 +17,10 @@ export default function NewActivityPage() {
         >
           <ArrowLeft className="h-4 w-4 text-neutral-700" />
         </button>
-        <h1 className="text-[22px] font-bold text-neutral-900">起锅</h1>
+        <h1 className="text-[22px] font-bold text-neutral-900">立局</h1>
       </header>
       <p className="mt-1 text-[13px] text-neutral-500">
-        填满这 7 张卡片，邀请食友一起开饭 🔥
+        填满这 7 张卡片，邀请协作伙伴一起开桌 🤝
       </p>
       <div className="mt-4">
         <CreateActivityForm />

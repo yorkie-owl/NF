@@ -32,7 +32,7 @@ export function ParticipantRow({ participant, isCreator }: ParticipantRowProps) 
           {participant.nickname}
         </p>
         <p className="text-[12px] text-neutral-500">
-          {isCreator ? '🍳 锅主' : '🥄 参与者'}
+          {isCreator ? '🎯 局主' : '🤝 参与者'}
         </p>
       </div>
     </div>
@@ -46,7 +46,7 @@ export function ParticipantPlaceholder({ missing }: { missing: number }) {
         ?
       </div>
       <p className="text-[13px]">
-        还差 {missing} 人，等待食友加入...
+        还差 {missing} 人，等待协作伙伴加入...
       </p>
     </div>
   );

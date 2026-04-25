@@ -93,7 +93,7 @@ export default function FoodPreferencesPage() {
     };
     try {
       await update.mutateAsync(payload);
-      toast.success('食物偏好已更新');
+      toast.success('协作偏好已更新');
       router.replace('/profile');
     } catch (err) {
       const apiErr = await extractApiError(err);
@@ -121,14 +121,14 @@ export default function FoodPreferencesPage() {
           <ChevronLeft className="h-5 w-5 text-neutral-700" />
         </button>
         <h1 className="text-[20px] font-semibold text-neutral-900">
-          食物偏好
+          协作偏好
         </h1>
       </div>
 
       <section className="mt-5 rounded-2xl border border-white/70 bg-white/70 p-5 shadow-sm backdrop-blur">
         <div className="flex items-center justify-between">
           <p className="text-[15px] font-medium text-neutral-900">
-            常吃菜系
+            你的行业领域
           </p>
           <span className="text-[11px] text-neutral-400 tabular-nums">
             {cuisines.length} / 10
@@ -149,7 +149,7 @@ export default function FoodPreferencesPage() {
       <section className="mt-4 rounded-2xl border border-white/70 bg-white/70 p-5 shadow-sm backdrop-blur">
         <div className="flex items-center justify-between">
           <p className="text-[15px] font-medium text-neutral-900">
-            饮食限制
+            协作禁区
           </p>
           <span className="text-[11px] text-neutral-400 tabular-nums">
             {dietary.length} / 10
@@ -167,7 +167,7 @@ export default function FoodPreferencesPage() {
       </section>
 
       <section className="mt-4 rounded-2xl border border-white/70 bg-white/70 p-5 shadow-sm backdrop-blur">
-        <p className="text-[15px] font-medium text-neutral-900">做饭水平</p>
+        <p className="text-[15px] font-medium text-neutral-900">经验等级</p>
         <div className="mt-4">
           <EnumChipSingleSelect
             options={SKILL_OPTIONS}

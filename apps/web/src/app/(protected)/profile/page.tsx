@@ -163,10 +163,10 @@ export default function ProfilePage() {
       {/* Friend preferences */}
       <ProfileSection
         className="mt-4"
-        title="交友偏好"
+        title="协作偏好（社交）"
         icon={<Heart className="h-4 w-4" />}
         editHref="/preferences/friend"
-        editLabel="编辑交友偏好"
+        editLabel="编辑协作偏好"
       >
         <ProfileRow label="接受陌生人">
           {friend.data
@@ -194,16 +194,16 @@ export default function ProfilePage() {
         </div>
       </ProfileSection>
 
-      {/* Food preferences */}
+      {/* Collaboration preferences */}
       <ProfileSection
         className="mt-4"
-        title="食物偏好"
+        title="协作偏好"
         icon={<Utensils className="h-4 w-4" />}
         editHref="/preferences/food"
-        editLabel="编辑食物偏好"
+        editLabel="编辑协作偏好"
       >
         <div className="flex items-start justify-between gap-3">
-          <span className="text-[14px] text-neutral-500">常吃菜系</span>
+          <span className="text-[14px] text-neutral-500">行业领域</span>
           <div className="flex flex-1 flex-wrap justify-end gap-1.5">
             {food.data && food.data.cuisines.length > 0 ? (
               food.data.cuisines.map((c) => (
@@ -216,14 +216,14 @@ export default function ProfilePage() {
             )}
           </div>
         </div>
-        <ProfileRow label="饮食限制">
+        <ProfileRow label="协作禁区">
           {food.data && food.data.dietaryRestrictions.length > 0
             ? food.data.dietaryRestrictions
                 .map((r) => DietaryLabel[r])
                 .join('、')
             : '无特殊限制'}
         </ProfileRow>
-        <ProfileRow label="做饭水平">
+        <ProfileRow label="经验等级">
           {food.data ? CookingSkillLabel[food.data.cookingSkill] : '--'}
         </ProfileRow>
       </ProfileSection>

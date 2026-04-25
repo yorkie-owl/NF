@@ -44,7 +44,7 @@ export default function MyActivitiesPage() {
             >
               <ArrowLeft className="h-4 w-4 text-neutral-700" />
             </button>
-            <h1 className="text-[22px] font-bold text-neutral-900">我的锅</h1>
+            <h1 className="text-[22px] font-bold text-neutral-900">我的局</h1>
           </div>
           <Link
             href="/chat/list?tab=unread"
@@ -69,7 +69,7 @@ export default function MyActivitiesPage() {
               'border-b-2 border-brand-500',
             )}
           >
-            我的锅
+            我的局
           </span>
           <Link
             href="/activities/discover"
@@ -93,14 +93,14 @@ export default function MyActivitiesPage() {
         ) : !data || data.items.length === 0 ? (
           <div className="mt-10 flex flex-col items-center gap-4 rounded-2xl bg-white p-8 text-center shadow-sm">
             <span className="text-[48px]" aria-hidden>
-              🍳
+              🤝
             </span>
             <p className="text-[15px] font-medium text-neutral-700">
-              还没有锅在煮呢
+              还没有局在跑呢
             </p>
             <Link href="/activities/new">
               <Button variant="gradient" size="md">
-                去起一锅 →
+                去起一桌 →
               </Button>
             </Link>
           </div>

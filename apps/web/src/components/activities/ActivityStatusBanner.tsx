@@ -30,14 +30,14 @@ export function ActivityStatusBanner({
     content = {
       bg: 'bg-warning-100',
       text: 'text-warning-500',
-      body: `🔥 距离开饭还有 ${min} 分钟`,
+      body: `🔥 距离开桌还有 ${min} 分钟`,
     };
   } else if (status === 'IN_PROGRESS') {
     const min = Math.max(0, absSince);
     content = {
       bg: 'bg-success-100',
       text: 'text-success-500',
-      body: `🍲 进行中 · 已开始 ${min} 分钟`,
+      body: `🤝 进行中 · 已开始 ${min} 分钟`,
     };
   } else if (status === 'COMPLETED') {
     content = {

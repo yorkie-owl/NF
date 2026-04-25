@@ -74,11 +74,11 @@ export function CreateActivityForm() {
       return;
     }
     if (manualIngredients.length >= 20) {
-      toast.info('最多添加 20 个食材');
+      toast.info('最多添加 20 个 idea');
       return;
     }
     if (v.length > 50) {
-      toast.error('食材名最多 50 个字');
+      toast.error('idea 名最多 50 个字');
       return;
     }
     setValue('manualIngredients', [...manualIngredients, v], {
@@ -114,14 +114,14 @@ export function CreateActivityForm() {
         startTime: iso,
         description: values.description?.trim() ? values.description : null,
       });
-      toast.success('开锅成功！🔥');
+      toast.success('立局成功！🤝');
       router.push('/activities');
     } catch (err) {
       const api = await extractApiError(err);
       if (api?.code === 'ACTIVITY_START_IN_PAST') {
-        toast.error('开饭时间不能是过去');
+        toast.error('开桌时间不能是过去');
       } else {
-        toast.error(api?.message ?? '起锅失败，请重试');
+        toast.error(api?.message ?? '立局失败，请重试');
       }
     }
   });
@@ -130,11 +130,11 @@ export function CreateActivityForm() {
     <form onSubmit={submit} className="flex flex-col gap-4 pb-24">
       {/* Card 1 — title */}
       <section className="rounded-2xl bg-white p-4 shadow-sm">
-        <Label htmlFor="title">这锅做什么？</Label>
+        <Label htmlFor="title">这桌做什么？</Label>
         <Input
           id="title"
           {...register('title')}
-          placeholder="起个锅名，比如「今晚煮面」"
+          placeholder="起个桌名，比如「今晚聊 MVP」"
           invalid={Boolean(errors.title)}
           className="mt-2"
         />
@@ -224,20 +224,20 @@ export function CreateActivityForm() {
         </div>
       </section>
 
-      {/* Card 5 — ingredients (manual fallback, B empty) */}
+      {/* Card 5 — ideas (manual fallback, B empty) */}
       <section className="rounded-2xl bg-white p-4 shadow-sm">
-        <Label>我带的食材（从冰箱选）</Label>
+        <Label>我带的 idea（从冰箱选）</Label>
         <p className="mt-1 text-[12px] text-neutral-500">
-          冰箱还没有食材 · 先去拍照识别 →
+          冰箱还没有 idea · 先去拍图识别 →
         </p>
         <div className="mt-3 flex gap-2">
           <Input
-            placeholder="输入食材名，回车添加"
+            placeholder="输入 idea 名，回车添加"
             value={ingredientInput}
             onChange={(e) => setIngredientInput(e.target.value)}
             onKeyDown={onIngredientKeyDown}
             maxLength={50}
-            aria-label="添加食材"
+            aria-label="添加 idea"
           />
           <Button
             type="button"
@@ -275,7 +275,7 @@ export function CreateActivityForm() {
       <section className="rounded-2xl bg-white p-4 shadow-sm">
         <Label>加入范围</Label>
         <p className="mt-1 text-[12px] text-neutral-500">
-          决定谁能看到并加入这锅
+          决定谁能看到并加入这桌
         </p>
         <div className="mt-3">
           <Controller
@@ -314,7 +314,7 @@ export function CreateActivityForm() {
             full
             disabled={isSubmitting || mutation.isPending}
           >
-            {mutation.isPending ? '开锅中...' : '开锅！🔥'}
+            {mutation.isPending ? '立局中...' : '立局！🤝'}
           </Button>
         </div>
       </div>
