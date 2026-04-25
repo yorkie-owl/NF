@@ -1,11 +1,26 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ChevronLeft, ChevronRight, Sparkles } from 'lucide-react';
+import type { OpcIdeaCard } from '@lin-shi/culina-agent';
 import { STORYBOARD_FRAMES } from '@/lib/storyboard-frames';
 import { matchIdeas } from '@/lib/opc-agent';
 import { IdeaWalkOut } from '@/components/idea/IdeaWalkOut';
+import { getDemoIngredientByName } from '@/lib/demo-ingredients';
+
+const DEMO_IDEAS: ReadonlyArray<OpcIdeaCard> = (['番茄', '鸡蛋'] as const).flatMap((name) => {
+  const ing = getDemoIngredientByName(name);
+  if (!ing) return [];
+  return [
+    {
+      name: ing.name,
+      styleTags: ing.tasteTags,
+      sceneTags: ing.contextTags,
+      description: '',
+    } satisfies OpcIdeaCard,
+  ];
+});
 
 export function StoryboardDriver() {
   const router = useRouter();
@@ -13,29 +28,45 @@ export function StoryboardDriver() {
   const [walkOut, setWalkOut] = useState(false);
   const [agentLine, setAgentLine] = useState<string | null>(null);
 
+  const walkOutTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const frameTokenRef = useRef(0);
+
   const frame = STORYBOARD_FRAMES[idx]!;
 
   const goTo = useCallback(
     (n: number) => {
       const next = Math.max(0, Math.min(STORYBOARD_FRAMES.length - 1, n));
+      const myToken = ++frameTokenRef.current;
+
+      if (walkOutTimerRef.current) {
+        clearTimeout(walkOutTimerRef.current);
+        walkOutTimerRef.current = null;
+      }
+
       setIdx(next);
       const f = STORYBOARD_FRAMES[next]!;
       router.push(`${f.route}?demo=1`);
       setWalkOut(false);
       setAgentLine(null);
+
       if (f.triggerWalkOut) {
-        setTimeout(() => setWalkOut(true), 400);
+        walkOutTimerRef.current = setTimeout(() => {
+          if (myToken !== frameTokenRef.current) return;
+          setWalkOut(true);
+        }, 400);
       }
+
       if (f.triggerAgentMatch) {
         setAgentLine('agent thinking…');
-        matchIdeas([
-          { name: '番茄', styleTags: ['快速原型', '极简'], sceneTags: ['独立咖啡馆'], description: '想做独立咖啡馆 MVP' },
-          { name: '鸡蛋', styleTags: ['React 全栈'], sceneTags: ['MVP 速搭'], description: '能给 React 全栈支持' },
-        ])
+        matchIdeas([...DEMO_IDEAS])
           .then(({ result, source }) => {
+            if (myToken !== frameTokenRef.current) return;
             setAgentLine(`${result.reason}（${source === 'live' ? '实时' : '缓存'}）`);
           })
-          .catch(() => setAgentLine('（agent 暂时不在线，使用预录方案）'));
+          .catch(() => {
+            if (myToken !== frameTokenRef.current) return;
+            setAgentLine('（agent 暂时不在线，使用预录方案）');
+          });
       }
     },
     [router],
@@ -55,14 +86,20 @@ export function StoryboardDriver() {
     return () => window.removeEventListener('keydown', onKey);
   }, [idx, goTo]);
 
+  useEffect(() => {
+    return () => {
+      if (walkOutTimerRef.current) clearTimeout(walkOutTimerRef.current);
+    };
+  }, []);
+
   return (
     <>
       <IdeaWalkOut
         visible={walkOut}
         emoji="🍅"
         name="番茄"
-        startX={typeof window !== 'undefined' ? window.innerWidth / 2 - 24 : 200}
-        startY={typeof window !== 'undefined' ? window.innerHeight / 2 - 24 : 300}
+        startX={window.innerWidth / 2 - 24}
+        startY={window.innerHeight / 2 - 24}
         onDone={() => setWalkOut(false)}
       />
 

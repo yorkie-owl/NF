@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { RESTLESS_THRESHOLD } from '@/lib/restlessness';
 
 type Props = {
   /** 0..100 */
@@ -12,15 +13,12 @@ type Props = {
 
 const STROKE = 2;
 
-/**
- * 一个圆环进度条。≥95% 时心跳脉冲提示"它要出门了"。
- */
 export function RestlessnessRing({ value, size = 16, className }: Props) {
   const v = Math.max(0, Math.min(100, value));
   const r = (size - STROKE) / 2;
   const c = 2 * Math.PI * r;
   const offset = c * (1 - v / 100);
-  const restless = v >= 95;
+  const restless = v >= RESTLESS_THRESHOLD;
   const stroke = restless ? '#fb7185' : v >= 60 ? '#f97316' : '#a3a3a3';
 
   return (

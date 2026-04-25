@@ -279,10 +279,8 @@ export default function ActivityDetailPage() {
         </div>
       </section>
 
-      {/* 局长助理 · FORMED 之后入场 */}
-      {(['FORMED', 'STARTING_SOON', 'IN_PROGRESS', 'COMPLETED'] as const).includes(
-        activity.status as 'FORMED' | 'STARTING_SOON' | 'IN_PROGRESS' | 'COMPLETED',
-      ) ? (
+      {/* 局长助理 · FORMED 之后入场（=非招募中、非已取消） */}
+      {activity.status !== 'WAITING_FOR_MEMBERS' && activity.status !== 'CANCELLED' ? (
         <section className="mt-3">
           <AgentBubble
             title="给三位 OPC 的破冰三连"

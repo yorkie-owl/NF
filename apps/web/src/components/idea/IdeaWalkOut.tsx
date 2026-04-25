@@ -13,10 +13,6 @@ type Props = {
   onDone?: () => void;
 };
 
-/**
- * 一张 idea 卡片"出走"的过场动画。
- * 用法：把它挂在页面顶层，靠 visible 控制显隐。
- */
 export function IdeaWalkOut({ visible, emoji, name, startX = 0, startY = 0, onDone }: Props) {
   return (
     <AnimatePresence {...(onDone ? { onExitComplete: onDone } : {})}>
@@ -25,7 +21,7 @@ export function IdeaWalkOut({ visible, emoji, name, startX = 0, startY = 0, onDo
           className="pointer-events-none fixed left-0 top-0 z-50 flex flex-col items-center"
           initial={{ x: startX, y: startY, scale: 1, opacity: 1, rotate: 0 }}
           animate={{
-            x: typeof window !== 'undefined' ? window.innerWidth + 80 : 800,
+            x: window.innerWidth + 80,
             y: startY - 200,
             scale: 0.6,
             opacity: 0.85,

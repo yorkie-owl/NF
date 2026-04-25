@@ -15,6 +15,8 @@ export function restlessness(ing: Pick<Ingredient, 'addedAt' | 'expiresAt'>): nu
   return Math.round((elapsed / span) * 100);
 }
 
+export const RESTLESS_THRESHOLD = 95;
+
 export function isRestless(ing: Pick<Ingredient, 'addedAt' | 'expiresAt'>): boolean {
-  return restlessness(ing) >= 95;
+  return restlessness(ing) >= RESTLESS_THRESHOLD;
 }
