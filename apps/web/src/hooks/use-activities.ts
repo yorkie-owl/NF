@@ -142,20 +142,10 @@ function withCreatedActivities(): PaginatedResponse<Activity> {
 export function useActivities(params: UseActivitiesParams) {
   return useQuery<PaginatedResponse<Activity>>({
     queryKey: activitiesQueryKey(params),
-    queryFn: async () => {
-      if (!isAuthed()) {
-        return withCreatedActivities();
-      }
-      try {
-        return ActivityListSchema.parse(
-          await api
-            .get('activities', { searchParams: buildSearchParams(params) })
-            .json(),
-        );
-      } catch {
-        return withCreatedActivities();
-      }
-    },
+    // V3 demo: activities backend lives on a separate branch (`dev`). Until the
+    // module-c controller is ported into develop, always serve mock data so the
+    // /activities page renders cleanly instead of hitting a missing endpoint.
+    queryFn: async () => withCreatedActivities(),
     enabled: true,
     staleTime: 30_000,
     refetchOnWindowFocus: true,

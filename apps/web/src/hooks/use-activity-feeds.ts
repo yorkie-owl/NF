@@ -54,16 +54,9 @@ export function useActivityFeeds(
   const hidden = useDocumentHidden();
   return useQuery<PaginatedResponse<ActivityFeedItem>>({
     queryKey: activityFeedsKey(status),
-    queryFn: async () => {
-      if (!isAuthed()) return MOCK_FEEDS;
-      try {
-        return FeedsResponseSchema.parse(
-          await api.get('activity-feeds', { searchParams: { status } }).json(),
-        );
-      } catch {
-        return MOCK_FEEDS;
-      }
-    },
+    // V3 demo: activity-feeds endpoint lives on dev branch. Skip the network
+    // call so the unread badge / list never errors during the fridge demo.
+    queryFn: async () => MOCK_FEEDS,
     enabled: true,
     refetchInterval: hidden || pollMs === false ? false : pollMs,
     refetchOnWindowFocus: true,
