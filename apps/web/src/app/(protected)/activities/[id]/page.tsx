@@ -13,6 +13,8 @@ import { useParams, useRouter } from 'next/navigation';
 import { useMemo, useState } from 'react';
 import { ActivityEventItem } from '@/components/activities/ActivityEventItem';
 import { ActivityStatusBanner } from '@/components/activities/ActivityStatusBanner';
+import { AgentBubble } from '@/components/activities/AgentBubble';
+import { RetroCard } from '@/components/activities/RetroCard';
 import { IngredientBadge } from '@/components/activities/IngredientBadge';
 import {
   ParticipantPlaceholder,
@@ -276,6 +278,44 @@ export default function ActivityDetailPage() {
           ) : null}
         </div>
       </section>
+
+      {/* 局长助理 · FORMED 之后入场 */}
+      {(['FORMED', 'STARTING_SOON', 'IN_PROGRESS', 'COMPLETED'] as const).includes(
+        activity.status as 'FORMED' | 'STARTING_SOON' | 'IN_PROGRESS' | 'COMPLETED',
+      ) ? (
+        <section className="mt-3">
+          <AgentBubble
+            title="给三位 OPC 的破冰三连"
+            hint="开桌即送"
+            body={
+              <ol className="list-decimal pl-5 space-y-1">
+                <li>你最近一次为客户算复购周期是什么时候？</li>
+                <li>如果 MVP 砍到只剩一个功能，你会留哪个？</li>
+                <li>你愿意为这个 MVP 让出多少周末？</li>
+              </ol>
+            }
+          />
+        </section>
+      ) : null}
+
+      {activity.status === 'IN_PROGRESS' ? (
+        <section className="mt-3">
+          <AgentBubble
+            title="第一周里程碑建议"
+            hint="agent 自动生成"
+            body={<p>第一周交付一个能扫码入会、看积分的最小可点击 demo。</p>}
+          />
+        </section>
+      ) : null}
+
+      {activity.status === 'COMPLETED' ? (
+        <section className="mt-3">
+          <RetroCard
+            produce="一个跑通会员入会 + 积分查询的可点击原型，已交付独立咖啡馆主理人。"
+            nextStep="把核销动作打通，下周再开一桌做支付测试。"
+          />
+        </section>
+      ) : null}
 
       {/* Sticky bottom CTA */}
       <motion.div
