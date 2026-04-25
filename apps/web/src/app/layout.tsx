@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { ToastHost } from '@/components/common/ToastHost';
 import { QueryProvider } from '@/providers/query-provider';
+import { StoryboardMount } from '@/components/demo/StoryboardMount';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -22,6 +23,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <ToastHost />
             </div>
           </div>
+          <StoryboardMount />
         </QueryProvider>
       </body>
     </html>
