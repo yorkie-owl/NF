@@ -23,10 +23,9 @@ export function MobileShell({
   const surface = variant === 'activity' ? 'bg-neutral-50' : 'bg-linshi-page';
 
   return (
-    <div className={`relative flex min-h-full flex-1 flex-col ${surface} ${className}`}>
-      <div className="relative flex flex-1 flex-col min-h-0 w-full overflow-y-auto overflow-x-hidden">
-        {children}
-      </div>
+    <div className={`relative flex w-full min-h-0 flex-1 flex-col ${surface} ${className}`}>
+      {/* 纵向滚动由根 layout 的机框内层承担，此处不再套一层 overflow，避免与长页（食材详情）嵌套截断 */}
+      <div className="relative flex w-full min-w-0 flex-1 flex-col">{children}</div>
     </div>
   );
 }

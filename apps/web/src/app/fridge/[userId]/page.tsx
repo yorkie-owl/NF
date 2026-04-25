@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ArrowLeft, Clock, Tag } from 'lucide-react';
 import { fetchIngredientById } from '@/lib/ingredients';
+import { IngredientFridgeDetailClient } from '@/components/linshi/ingredient-fridge-detail-client';
 import { BottomNav } from '@/components/linshi/bottom-nav';
 import { MobileShell } from '@/components/linshi/mobile-shell';
 import { StatusBarDecor } from '@/components/linshi/status-bar';
@@ -22,11 +23,18 @@ export default async function FridgeInnerPage({ params }: Props) {
   }
 
   const emoji = emojiByName[ing.name] ?? '🥗';
+  const isAway = new Date(ing.expiresAt) < new Date();
 
   return (
     <MobileShell variant="activity" className="flex flex-col">
-      <div className="flex min-h-0 flex-1 flex-col overflow-y-auto overscroll-y-contain pb-linshi-bottom-nav">
-        <div className="min-h-full pb-8">
+      <div
+        className={
+          isAway
+            ? 'flex min-h-0 flex-1 flex-col pb-[max(1.5rem,env(safe-area-inset-bottom))]'
+            : 'flex min-h-0 flex-1 flex-col pb-[175px]'
+        }
+      >
+        <div className="pb-8">
           <StatusBarDecor />
 
         <header className="flex items-center gap-3 px-5 pt-1">
@@ -42,13 +50,9 @@ export default async function FridgeInnerPage({ params }: Props) {
         <div className="px-5 pt-4">
           <p className="text-[11px] font-medium uppercase tracking-wider text-rose-400/90">食材详情</p>
           <h1 className="mt-1 text-2xl font-bold text-neutral-900">{ing.name}</h1>
+          <p className="mt-1 text-[11px] text-neutral-500">设定探索偏好，让 TA 带着标签去「散步」</p>
 
-          <div className="relative mt-6 aspect-square w-full max-w-[280px] overflow-hidden rounded-[28px] bg-gradient-to-br from-white to-rose-50 shadow-lg shadow-rose-200/40 ring-1 ring-rose-100">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,182,193,0.35),transparent_55%)]" />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <span className="text-[100px] leading-none drop-shadow-sm">{emoji}</span>
-            </div>
-          </div>
+          <IngredientFridgeDetailClient ingredient={ing} logoEmoji={emoji} />
 
           <div className="mt-8 space-y-5">
             {ing.category ? (
@@ -60,20 +64,6 @@ export default async function FridgeInnerPage({ params }: Props) {
                 <p className="mt-1.5 text-[16px] text-neutral-800">{ing.category}</p>
               </div>
             ) : null}
-
-            <div>
-              <h2 className="text-[11px] font-semibold uppercase tracking-wider text-neutral-400">风味标签</h2>
-              <div className="mt-2 flex flex-wrap gap-2">
-                {ing.tasteTags.map((t) => (
-                  <span
-                    key={t}
-                    className="rounded-full border border-rose-200 bg-white px-3 py-1 text-[12px] text-rose-700 shadow-sm"
-                  >
-                    {t}
-                  </span>
-                ))}
-              </div>
-            </div>
 
             <div className="grid grid-cols-2 gap-3 rounded-2xl bg-white p-4 shadow-sm ring-1 ring-neutral-100">
               <div>
@@ -97,7 +87,7 @@ export default async function FridgeInnerPage({ params }: Props) {
         </div>
       </div>
 
-      <BottomNav active="activity" />
+      {isAway ? null : <BottomNav active="activity" />}
     </MobileShell>
   );
 }

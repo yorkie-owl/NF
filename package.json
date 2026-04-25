@@ -9,7 +9,7 @@
     "dev:culina": "pnpm --filter @lin-shi/culina-server dev",
     "build:culina-agent": "pnpm --filter @lin-shi/culina-agent build",
     "demo:culina": "pnpm --filter @lin-shi/culina-agent run demo",
-    "build": "pnpm build:contracts && pnpm --filter @lin-shi/api build && pnpm --filter @lin-shi/web build",
+    "build": "pnpm build:contracts && pnpm build:culina-agent && pnpm --filter @lin-shi/api build && pnpm --filter @lin-shi/web build",
     "lint": "pnpm -r lint",
     "typecheck": "pnpm -r typecheck",
     "db:up": "docker compose up -d postgres",

@@ -3,6 +3,8 @@ import {
   Body,
   Controller,
   Get,
+  Param,
+  Patch,
   Post,
   Query,
   UnauthorizedException,
@@ -11,6 +13,7 @@ import {
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { UpdateIngredientBodySchema } from '@lin-shi/contracts';
 import { z } from 'zod';
 import { IngredientsService } from './ingredients.service';
 
@@ -23,6 +26,7 @@ const CreateIngredientBodySchema = z.object({
   name: z.string().min(1),
   category: z.string().nullable().optional().default(null),
   tasteTags: z.array(z.string()).default([]),
+  contextTags: z.array(z.string()).default([]),
   recognizedFromImageUrl: z.string().url().nullable().optional().default(null),
 });
 
@@ -69,5 +73,11 @@ export class IngredientsController {
   create(@Body() body: unknown) {
     const parsed = CreateIngredientBodySchema.parse(body);
     return { item: this.ingredients.addIngredient(parsed) };
+  }
+
+  @Patch('ingredients/:id')
+  update(@Param('id') id: string, @Body() body: unknown) {
+    const patch = UpdateIngredientBodySchema.parse(body);
+    return { item: this.ingredients.updateById(id, patch) };
   }
 }

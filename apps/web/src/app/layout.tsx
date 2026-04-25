@@ -15,7 +15,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <QueryProvider>
           <div className="demo-stage bg-white">
             <div className="phone-frame bg-[#FFF5F7] overflow-hidden">
-              <div className="h-full w-full relative overflow-hidden">
+              {/* 机框内可纵向滚动；勿用 overflow-hidden，否则长页（如食材探索配置）被裁切且无法滑到底部 */}
+              <div className="relative flex h-full min-h-0 w-full flex-1 flex-col overflow-y-auto overflow-x-hidden overscroll-y-contain [-webkit-overflow-scrolling:touch]">
                 {children}
               </div>
               <ToastHost />

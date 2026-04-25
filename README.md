@@ -37,7 +37,7 @@
    - 前端: `pnpm dev:web` (默认端口 3000)
    - 后端: `pnpm dev:api` (默认端口 3001)
 5. **数据库**:
-   - 可运行 `pnpm db:up` 启动 Docker 版 PostgreSQL。
+   - 可运行 `pnpm db:up` 启动 Docker 版 PostgreSQL（映射到本机 **5433**，避免与本机已安装的 PostgreSQL 争用 5432；`apps/api/.env` 中 `DB_PORT` 需与之一致）。
 
 ---
 

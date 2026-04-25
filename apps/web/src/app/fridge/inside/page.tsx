@@ -4,6 +4,7 @@ import type { Ingredient } from '@lin-shi/contracts';
 import { BottomNav } from '@/components/linshi/bottom-nav';
 import { MobileShell } from '@/components/linshi/mobile-shell';
 import { StatusBarDecor } from '@/components/linshi/status-bar';
+import { getDemoIngredientPreviewHref } from '@/lib/demo-ingredients';
 import { fetchIngredients } from '@/lib/ingredients';
 
 /** Figma 画板 2:8210 演示用 3×3 食材（API 无数据时） */
@@ -34,13 +35,22 @@ const emojiByName: Record<string, string> = {
   土豆: '🥔',
 };
 
-type GridCell = { id?: string; name: string; emoji: string; gone: boolean };
+type GridCell = {
+  id?: string;
+  name: string;
+  emoji: string;
+  gone: boolean;
+  href: string;
+};
 
 function IngredientCell({ cell }: { cell: GridCell }) {
-  const inner = (
-    <>
+  return (
+    <Link
+      href={cell.href}
+      className="group flex min-h-[48px] flex-col items-center gap-1 rounded-xl p-0.5 outline-none ring-rose-400/0 transition hover:opacity-95 active:scale-[0.97] focus-visible:ring-2 focus-visible:ring-rose-300/80"
+    >
       <div
-        className={`relative flex h-[40px] w-[40px] items-center justify-center rounded-[10px] bg-white shadow-md ring-1 ring-black/[0.06] sm:h-[44px] sm:w-[44px] ${cell.gone ? 'opacity-45 grayscale' : ''}`}
+        className={`relative flex h-[40px] w-[40px] items-center justify-center rounded-[10px] bg-white shadow-md ring-1 ring-black/[0.06] transition group-hover:ring-rose-200/80 sm:h-[44px] sm:w-[44px] ${cell.gone ? 'opacity-45 grayscale' : ''}`}
       >
         <span className="text-lg sm:text-xl">{cell.emoji}</span>
         {cell.gone ? (
@@ -52,26 +62,24 @@ function IngredientCell({ cell }: { cell: GridCell }) {
       <span className="max-w-[44px] truncate text-center text-[8px] leading-tight text-neutral-700 sm:max-w-[48px] sm:text-[9px]">
         {cell.name}
       </span>
-    </>
+    </Link>
   );
-
-  if (cell.id) {
-    return (
-      <Link href={`/fridge/${cell.id}`} className="flex flex-col items-center gap-1">
-        {inner}
-      </Link>
-    );
-  }
-
-  return <div className="flex flex-col items-center gap-1">{inner}</div>;
 }
 
 function buildGrid(items: Ingredient[], error: string | null): { cells: GridCell[]; showError: boolean } {
+  const demoCells = (): GridCell[] =>
+    FIGMA_DEMO_GRID.map((d) => ({
+      name: d.name,
+      emoji: d.emoji,
+      gone: d.gone,
+      href: getDemoIngredientPreviewHref(d.name),
+    }));
+
   if (error) {
-    return { cells: FIGMA_DEMO_GRID, showError: true };
+    return { cells: demoCells(), showError: true };
   }
   if (items.length === 0) {
-    return { cells: FIGMA_DEMO_GRID, showError: false };
+    return { cells: demoCells(), showError: false };
   }
   return {
     cells: items.slice(0, 10).map((ing) => ({
@@ -79,6 +87,7 @@ function buildGrid(items: Ingredient[], error: string | null): { cells: GridCell
       name: ing.name,
       emoji: emojiByName[ing.name] ?? '🥬',
       gone: new Date(ing.expiresAt) < new Date(),
+      href: `/fridge/${ing.id}`,
     })),
     showError: false,
   };
@@ -161,7 +170,10 @@ export default async function FridgeInsidePage() {
 
             {/* 右栏：我的食材 */}
             <div className="min-w-0 pl-3">
-              <div className="mb-2 text-[13px] font-bold text-neutral-800">我的食材</div>
+              <div className="mb-0.5 text-[13px] font-bold text-neutral-800">我的食材</div>
+              <p className="mb-2 text-[10px] leading-snug text-neutral-500">
+                点按食材，为旅行探索设定口味与场景
+              </p>
               {showError ? (
                 <p className="mb-2 text-[10px] font-medium text-orange-500/90">{error}</p>
               ) : null}

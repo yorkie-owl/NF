@@ -1,4 +1,9 @@
-import { Injectable, Logger, ServiceUnavailableException } from '@nestjs/common';
+import {
+  Injectable,
+  Logger,
+  NotFoundException,
+  ServiceUnavailableException,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { randomUUID } from 'node:crypto';
 import type { Ingredient } from '@lin-shi/contracts';
@@ -21,7 +26,13 @@ export type CreateIngredientInput = {
   name: string;
   category: string | null;
   tasteTags: string[];
+  contextTags: string[];
   recognizedFromImageUrl: string | null;
+};
+
+export type UpdateIngredientInput = {
+  tasteTags?: string[] | undefined;
+  contextTags?: string[] | undefined;
 };
 
 /** Mock 数据：队友接入 `i_ingredients` 后可替换为 TypeORM。 */
@@ -36,6 +47,7 @@ export class IngredientsService {
       name: '番茄',
       category: '蔬菜',
       tasteTags: ['酸甜', '多汁'],
+      contextTags: [],
       recognizedFromImageUrl: null,
       addedAt: new Date(Date.now() - 86400000).toISOString(),
       expiresAt: new Date(Date.now() + 86400000 * 2).toISOString(),
@@ -46,6 +58,7 @@ export class IngredientsService {
       name: '鸡蛋',
       category: '蛋奶',
       tasteTags: ['高蛋白'],
+      contextTags: [],
       recognizedFromImageUrl: null,
       addedAt: new Date(Date.now() - 172800000).toISOString(),
       expiresAt: new Date(Date.now() + 432000000).toISOString(),
@@ -56,6 +69,7 @@ export class IngredientsService {
       name: '牛奶',
       category: '饮品',
       tasteTags: ['乳香'],
+      contextTags: [],
       recognizedFromImageUrl: null,
       addedAt: new Date().toISOString(),
       expiresAt: new Date(Date.now() + 86400000 * 3).toISOString(),
@@ -214,11 +228,27 @@ export class IngredientsService {
       name: input.name,
       category: input.category,
       tasteTags: input.tasteTags,
+      contextTags: input.contextTags,
       recognizedFromImageUrl: input.recognizedFromImageUrl,
       addedAt: new Date(now).toISOString(),
       expiresAt: new Date(now + day).toISOString(),
     };
     this.mock.push(row);
     return row;
+  }
+
+  updateById(id: string, patch: UpdateIngredientInput): Ingredient {
+    const idx = this.mock.findIndex((i) => i.id === id);
+    if (idx < 0) {
+      throw new NotFoundException('ingredient not found');
+    }
+    const cur = this.mock[idx]!;
+    if (patch.tasteTags !== undefined) {
+      cur.tasteTags = patch.tasteTags;
+    }
+    if (patch.contextTags !== undefined) {
+      cur.contextTags = patch.contextTags;
+    }
+    return { ...cur };
   }
 }

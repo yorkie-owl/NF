@@ -33,6 +33,7 @@ export async function createIngredientOnServer(input: {
   name: string;
   category?: string | null;
   tasteTags: string[];
+  contextTags?: string[];
   recognizedFromImageUrl?: string | null;
 }): Promise<Ingredient> {
   const json: unknown = await api
@@ -42,9 +43,25 @@ export async function createIngredientOnServer(input: {
         name: input.name,
         category: input.category ?? null,
         tasteTags: input.tasteTags,
+        contextTags: input.contextTags ?? [],
         recognizedFromImageUrl: input.recognizedFromImageUrl ?? null,
       },
     })
     .json();
   return CreateIngredientResponseSchema.parse(json).item;
+}
+
+const PatchIngredientResponseSchema = z.object({
+  item: IngredientSchema,
+});
+
+export async function updateIngredientTags(
+  id: string,
+  patch: { tasteTags?: string[]; contextTags?: string[] },
+): Promise<Ingredient> {
+  if (patch.tasteTags === undefined && patch.contextTags === undefined) {
+    throw new Error('updateIngredientTags: tasteTags or contextTags required');
+  }
+  const json: unknown = await api.patch(`ingredients/${id}`, { json: patch }).json();
+  return PatchIngredientResponseSchema.parse(json).item;
 }

@@ -2,8 +2,9 @@ services:
   postgres:
     image: postgres:17-alpine
     container_name: lin-shi-postgres
+    # 避免与本机已安装的 PostgreSQL（常见占用 5432）冲突
     ports:
-      - "5432:5432"
+      - "5433:5432"
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
