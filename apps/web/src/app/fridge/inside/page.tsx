@@ -6,6 +6,8 @@ import { MobileShell } from '@/components/linshi/mobile-shell';
 import { StatusBarDecor } from '@/components/linshi/status-bar';
 import { getDemoIngredientPreviewHref } from '@/lib/demo-ingredients';
 import { fetchIngredients } from '@/lib/ingredients';
+import { RestlessnessRing } from '@/components/idea/RestlessnessRing';
+import { restlessness } from '@/lib/restlessness';
 
 /** Figma 画板 2:8210 演示用 3×3 食材（API 无数据时） */
 const FIGMA_DEMO_GRID: { name: string; emoji: string; gone: boolean }[] = [
@@ -41,6 +43,7 @@ type GridCell = {
   emoji: string;
   gone: boolean;
   href: string;
+  restless: number;
 };
 
 function IngredientCell({ cell }: { cell: GridCell }) {
@@ -57,7 +60,11 @@ function IngredientCell({ cell }: { cell: GridCell }) {
           <span className="absolute -right-1 -top-1 rounded-full bg-pink-400 px-1.5 py-0.5 text-[9px] font-medium text-white">
             出走
           </span>
-        ) : null}
+        ) : (
+          <span className="absolute -right-0.5 -top-0.5">
+            <RestlessnessRing value={cell.restless} size={14} />
+          </span>
+        )}
       </div>
       <span className="max-w-[44px] truncate text-center text-[8px] leading-tight text-neutral-700 sm:max-w-[48px] sm:text-[9px]">
         {cell.name}
@@ -68,11 +75,13 @@ function IngredientCell({ cell }: { cell: GridCell }) {
 
 function buildGrid(items: Ingredient[], error: string | null): { cells: GridCell[]; showError: boolean } {
   const demoCells = (): GridCell[] =>
-    FIGMA_DEMO_GRID.map((d) => ({
+    FIGMA_DEMO_GRID.map((d, i) => ({
       name: d.name,
       emoji: d.emoji,
       gone: d.gone,
       href: getDemoIngredientPreviewHref(d.name),
+      // demo 卡没有真 ingredient — 用位置生成一个有梯度的躁动指数，让进度环视觉有差异
+      restless: d.gone ? 100 : 30 + ((i * 13) % 65),
     }));
 
   if (error) {
@@ -88,6 +97,7 @@ function buildGrid(items: Ingredient[], error: string | null): { cells: GridCell
       emoji: emojiByName[ing.name] ?? '🥬',
       gone: new Date(ing.expiresAt) < new Date(),
       href: `/fridge/${ing.id}`,
+      restless: restlessness(ing),
     })),
     showError: false,
   };
