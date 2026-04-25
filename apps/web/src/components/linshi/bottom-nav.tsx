@@ -64,13 +64,13 @@ export function BottomNav({ active = 'cook' }: Props) {
           </li>
 
           <li className="flex flex-1 justify-center">
-            <PotButton href="/activities/new" label="准备起锅" />
+            <PotButton href="/activities/new" label="立局" />
           </li>
 
           <li className="flex flex-1 justify-center">
             <Link
               href="/activities"
-              aria-label="近期活动"
+              aria-label="近期局"
               aria-current={isActivity ? 'page' : undefined}
               className={cx(
                 'flex flex-col items-center gap-1 text-[11px] font-medium',
@@ -85,7 +85,7 @@ export function BottomNav({ active = 'cook' }: Props) {
               >
                 <Star className="h-5 w-5" aria-hidden />
               </span>
-              近期活动
+              近期局
             </Link>
           </li>
         </ul>

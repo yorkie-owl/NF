@@ -208,7 +208,7 @@ export function FigmaHomeScreen() {
               className="flex items-center gap-1.5 rounded-full border border-[#ff4d4f] bg-white px-2.5 py-1.5 text-[11px] font-medium text-[#ff4d4f] shadow-sm"
             >
               <ChefHat className="h-3.5 w-3.5" />
-              我的锅
+              我的局
               <span className="rounded-full bg-[#ff4d4f] px-1.5 text-[9px] leading-none text-white">2</span>
             </Link>
             <Link
@@ -222,7 +222,7 @@ export function FigmaHomeScreen() {
         </header>
 
         <p className="relative z-20 mx-auto mt-3 max-w-[82%] rounded-full bg-white px-4 py-2 text-center text-[12px] text-neutral-400 shadow-[0_4px_20px_rgba(0,0,0,0.06)]">
-          点击冰箱门查看食材和活动 ↓
+          点击冰箱门查看 idea 和局 ↓
         </p>
 
         {/* 画板：门区约 inset 8.97% 横、上 19.19% 起、下留白给底栏 — 用 flex-1 承接 */}
@@ -235,7 +235,7 @@ export function FigmaHomeScreen() {
             <Link
               href="/fridge/inside"
               className="absolute inset-0 z-0 rounded-[28px]"
-              aria-label="打开冰箱门，查看食材和活动"
+              aria-label="打开冰箱门，查看 idea 和局"
             />
 
             {/* 门缝中线 */}

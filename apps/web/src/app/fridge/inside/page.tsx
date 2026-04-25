@@ -9,32 +9,35 @@ import { fetchIngredients } from '@/lib/ingredients';
 import { RestlessnessRing } from '@/components/idea/RestlessnessRing';
 import { restlessness } from '@/lib/restlessness';
 
-/** Figma 画板 2:8210 演示用 3×3 食材（API 无数据时） */
+/** Figma 画板 2:8210 演示用 3×3 OPC idea（API 无数据时） */
 const FIGMA_DEMO_GRID: { name: string; emoji: string; gone: boolean }[] = [
-  { name: '西兰花', emoji: '🥦', gone: true },
-  { name: '胡萝卜', emoji: '🥕', gone: true },
-  { name: '番茄', emoji: '🍅', gone: false },
-  { name: '鸡蛋', emoji: '🥚', gone: false },
-  { name: '柠檬', emoji: '🍋', gone: false },
-  { name: '玉米', emoji: '🌽', gone: false },
-  { name: '生菜', emoji: '🥬', gone: false },
-  { name: '洋葱', emoji: '🧅', gone: false },
-  { name: '葡萄', emoji: '🍇', gone: false },
+  { name: '长期复利', emoji: '🌱', gone: true },
+  { name: 'B2B 内核', emoji: '🛠️', gone: true },
+  { name: '咖啡馆 MVP', emoji: '💡', gone: false },
+  { name: 'React 全栈', emoji: '🧱', gone: false },
+  { name: '锋利文案', emoji: '🔪', gone: false },
+  { name: '社区运营', emoji: '🌾', gone: false },
+  { name: '周更播客', emoji: '🎙️', gone: false },
+  { name: '危机公关', emoji: '🛡️', gone: false },
+  { name: '会员复利', emoji: '💎', gone: false },
 ];
 
 const emojiByName: Record<string, string> = {
-  西兰花: '🥦',
-  胡萝卜: '🥕',
-  番茄: '🍅',
-  鸡蛋: '🥚',
-  柠檬: '🍋',
-  玉米: '🌽',
-  生菜: '🥬',
-  洋葱: '🧅',
-  葡萄: '🍇',
-  牛奶: '🥛',
-  青椒: '🫑',
-  土豆: '🥔',
+  长期复利: '🌱',
+  'B2B 内核': '🛠️',
+  '咖啡馆 MVP': '💡',
+  'React 全栈': '🧱',
+  锋利文案: '🔪',
+  社区运营: '🌾',
+  周更播客: '🎙️',
+  危机公关: '🛡️',
+  会员复利: '💎',
+  '长期主义复利': '🌱',
+  'B2B SaaS 内核': '🛠️',
+  'React 全栈底子': '🧱',
+  '社区运营手感': '🌾',
+  '危机公关老手': '🛡️',
+  '会员体系复利': '💎',
 };
 
 type GridCell = {
@@ -103,14 +106,14 @@ function buildGrid(items: Ingredient[], error: string | null): { cells: GridCell
   };
 }
 
-/** Figma node 2:8210 — 打开冰箱后：渐变主卡、左栏活动+消息 / 右栏食材+拍照 */
+/** Figma node 2:8210 — 打开冰箱后：渐变主卡、左栏活动+消息 / 右栏 idea+拍照 */
 export default async function FridgeInsidePage() {
   let items: Ingredient[] = [];
   let error: string | null = null;
   try {
     items = await fetchIngredients();
   } catch {
-    error = '食材服务未连接';
+    error = 'idea 服务未连接';
   }
 
   const { cells, showError } = buildGrid(items, error);
@@ -142,13 +145,13 @@ export default async function FridgeInsidePage() {
               <Link href="/activities" className="block rounded-2xl bg-white/95 p-3 text-left shadow-sm ring-1 ring-white/80">
                 <div className="flex gap-2">
                   <div className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-amber-50 text-2xl">
-                    🍜
+                    ☕
                   </div>
                   <div className="min-w-0 flex-1">
-                    <p className="text-[12px] font-medium leading-snug text-neutral-800">今晚煮番茄鸡蛋面</p>
+                    <p className="text-[12px] font-medium leading-snug text-neutral-800">周三晚 · 咖啡馆会员 MVP 拼桌</p>
                     <p className="mt-1 text-[10px] text-neutral-400">今晚 7:00</p>
                     <span className="mt-1 inline-block rounded-md bg-amber-200/90 px-2 py-0.5 text-[10px] font-medium text-amber-800">
-                      进行中
+                      招募中
                     </span>
                   </div>
                 </div>
@@ -170,7 +173,7 @@ export default async function FridgeInsidePage() {
                         <span className="shrink-0 text-[10px] text-neutral-400">5分钟前</span>
                       </div>
                       <p className="mt-0.5 text-[11px] leading-relaxed text-neutral-600">
-                        我带面条，你带番茄鸡蛋吗～
+                        我带 React 全栈，你带会员运营手感～
                       </p>
                     </div>
                   </div>
@@ -178,11 +181,11 @@ export default async function FridgeInsidePage() {
               </div>
             </div>
 
-            {/* 右栏：我的食材 */}
+            {/* 右栏：我的 idea */}
             <div className="min-w-0 pl-3">
-              <div className="mb-0.5 text-[13px] font-bold text-neutral-800">我的食材</div>
+              <div className="mb-0.5 text-[13px] font-bold text-neutral-800">我的 idea</div>
               <p className="mb-2 text-[10px] leading-snug text-neutral-500">
-                点按食材，为旅行探索设定口味与场景
+                点按 idea，给它打风格 + 场景标签
               </p>
               {showError ? (
                 <p className="mb-2 text-[10px] font-medium text-orange-500/90">{error}</p>
@@ -198,7 +201,7 @@ export default async function FridgeInsidePage() {
                 className="mt-3 flex w-full items-center justify-center gap-2 rounded-2xl border border-neutral-200/90 bg-white py-2.5 text-[12px] font-medium text-neutral-600 shadow-sm"
               >
                 <Camera className="h-4 w-4" />
-                拍照识别食材
+                从照片快速捕获 idea
               </Link>
             </div>
           </div>
