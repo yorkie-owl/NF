@@ -14,17 +14,17 @@ export const STORYBOARD_FRAMES: ReadonlyArray<StoryboardFrame> = [
   {
     id: 1,
     route: '/fridge/inside',
-    narration: '邻食原本是邻居一起干饭。今天我们告诉你它真正的样子：OPC——一到十人的小协作团体——把脑子里想做的事当成食材，扔进冰箱。',
+    narration: '邻食是 OPC 协作平台——一到十人的小团体，把脑子里想做的事变成 idea 卡，扔进自己的灵感冰箱。',
   },
   {
     id: 2,
     route: '/fridge/inside',
-    narration: '每张「食材」都有保鲜期。到点它就躁动——它知道自己不该烂在冰箱里。',
+    narration: '每张 idea 卡都有保鲜期。到点它就躁动——它知道自己不该烂在冰箱里。',
   },
   {
     id: 3,
     route: '/fridge/inside',
-    narration: 'AI agent 主动出门，跨用户去找——不是别的商品、别的文档，是另一张能跟它配的「食材」，和它背后的人。',
+    narration: 'AI agent 主动出门，跨用户去找——不是别的商品、别的文档，是另一张能跟它配的 idea，和它背后的人。',
     triggerWalkOut: true,
     triggerAgentMatch: true,
   },
@@ -41,6 +41,6 @@ export const STORYBOARD_FRAMES: ReadonlyArray<StoryboardFrame> = [
   {
     id: 6,
     route: '/fridge',
-    narration: '邻食。让脑子里那张食材，自己找到能拼桌的人。',
+    narration: '邻食。让脑子里那张 idea，自己找到能拼桌的人。',
   },
 ];

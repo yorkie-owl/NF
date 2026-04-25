@@ -64,7 +64,7 @@ export function BottomNav() {
           </li>
 
           <li className="flex flex-1 justify-center">
-            <PotButton href="/activities/new" label="准备起锅" />
+            <PotButton href="/activities/new" label="立局" />
           </li>
 
           <li className="flex flex-1 justify-center">

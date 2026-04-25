@@ -225,7 +225,7 @@ export function FridgeDoorHero({ onOpenFridge }: FridgeDoorHeroProps) {
               className="w-[76px] rounded-xl bg-gradient-to-b from-pink-100/95 to-white/90 p-1.5 shadow-md shadow-pink-200/40 ring-1 ring-white/60 backdrop-blur-[2px]"
             >
               <Cake className="mx-auto h-6 w-6 text-pink-400" />
-              <p className="mt-0.5 text-center text-[9px] font-bold text-rose-500">口味达人</p>
+              <p className="mt-0.5 text-center text-[9px] font-bold text-rose-500">风格达人</p>
             </FridgeMagnet>
 
             <FridgeMagnet

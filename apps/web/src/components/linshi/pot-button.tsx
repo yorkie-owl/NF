@@ -10,7 +10,7 @@ export interface PotButtonProps {
 /**
  * NF `PotButton`：`from-brand-400 to-brand-500` + `shadow-glow-primary`（无 framer-motion）。
  */
-export function PotButton({ href, label = '准备起锅', className }: PotButtonProps) {
+export function PotButton({ href, label = '立局', className }: PotButtonProps) {
   return (
     <Link
       href={href}

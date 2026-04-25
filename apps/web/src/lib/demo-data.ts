@@ -13,7 +13,7 @@ export const DEMO_USER: UserPrivate = {
   avatarUrl: null,
   school: '上海',
   city: '上海',
-  bio: '喜欢把冰箱里的食材变成一顿邻里饭。',
+  bio: '喜欢把冰箱里的 idea 拼成一桌邻里 OPC。',
   badges: ['TASTE_EXPLORER', 'HEALTHY_LIFE'],
   credit: 100,
   createdAt: '2026-04-01T00:00:00.000Z',

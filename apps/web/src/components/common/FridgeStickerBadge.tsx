@@ -14,7 +14,7 @@ const BADGE_VISUALS: Record<string, BadgeVisual> = {
   taste_master: {
     icon: Sparkles,
     gradient: 'bg-gradient-invite',
-    chineseName: '口味达人',
+    chineseName: '风格达人',
   },
   healthy_life: {
     icon: Leaf,

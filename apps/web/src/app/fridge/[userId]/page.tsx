@@ -10,9 +10,21 @@ import { StatusBarDecor } from '@/components/linshi/status-bar';
 type Props = { params: Promise<{ userId: string }> };
 
 const emojiByName: Record<string, string> = {
-  番茄: '🍅',
-  鸡蛋: '🥚',
-  牛奶: '🥛',
+  长期复利: '🌱',
+  长期主义复利: '🌱',
+  'B2B 内核': '🛠️',
+  'B2B SaaS 内核': '🛠️',
+  '咖啡馆 MVP': '💡',
+  'React 全栈': '🧱',
+  'React 全栈底子': '🧱',
+  锋利文案: '🔪',
+  社区运营: '🌾',
+  社区运营手感: '🌾',
+  周更播客: '🎙️',
+  危机公关: '🛡️',
+  危机公关老手: '🛡️',
+  会员复利: '💎',
+  会员体系复利: '💎',
 };
 
 export default async function FridgeInnerPage({ params }: Props) {
@@ -22,7 +34,7 @@ export default async function FridgeInnerPage({ params }: Props) {
     notFound();
   }
 
-  const emoji = emojiByName[ing.name] ?? '🥗';
+  const emoji = emojiByName[ing.name] ?? '💡';
   const isAway = new Date(ing.expiresAt) < new Date();
 
   return (

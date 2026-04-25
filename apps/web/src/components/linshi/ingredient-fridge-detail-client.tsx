@@ -117,7 +117,7 @@ export function IngredientFridgeDetailClient({ ingredient, logoEmoji, demoMode =
     <div>
       <div
         className="relative mt-6 aspect-square w-full max-w-[280px] overflow-hidden rounded-[28px] bg-gradient-to-br from-white to-rose-50 shadow-lg shadow-rose-200/40 ring-1 ring-rose-100"
-        aria-label="已选探索标签与食材主视觉"
+        aria-label="已选探索标签与 idea 主视觉"
       >
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,182,193,0.35),transparent_55%)]" />
         <div className="absolute inset-0 flex flex-col p-2.5 sm:p-3">
@@ -191,12 +191,12 @@ export function IngredientFridgeDetailClient({ ingredient, logoEmoji, demoMode =
           为 TA 的探索加点设定
         </p>
         <p className="mt-1 text-[11px] leading-relaxed text-neutral-500">
-          选口味与对方背景，像旅行青蛙一样让食材带着偏好奇遇出发。
+          选风格与场景，像旅行青蛙一样让 idea 带着偏好出门找拼桌。
         </p>
 
         <div className="mt-4 space-y-4">
           <div>
-            <h3 className="text-[11px] font-semibold uppercase tracking-wider text-neutral-400">口味</h3>
+            <h3 className="text-[11px] font-semibold uppercase tracking-wider text-neutral-400">风格</h3>
             <div className="mt-2 flex flex-wrap gap-1.5">
               {TASTE_PRESETS.map((p) => {
                 const on = tasteTags.includes(p);
@@ -227,7 +227,7 @@ export function IngredientFridgeDetailClient({ ingredient, logoEmoji, demoMode =
                     setTasteDraft('');
                   }
                 }}
-                placeholder="自定义口味，回车添加"
+                placeholder="自定义风格，回车添加"
                 className="min-w-0 flex-1 rounded-xl border border-neutral-200 bg-white px-3 py-2 text-[13px] text-neutral-800 outline-none focus:border-rose-300"
               />
             </div>
@@ -318,10 +318,10 @@ export function IngredientFridgeDetailClient({ ingredient, logoEmoji, demoMode =
             href="/activities"
             className="flex w-full items-center justify-center rounded-2xl bg-gradient-to-r from-rose-400 to-amber-400 px-4 py-3.5 text-[15px] font-semibold text-white shadow-md shadow-rose-200/50 ring-1 ring-white/30 transition active:scale-[0.99] focus-visible:outline focus-visible:ring-2 focus-visible:ring-rose-300"
           >
-            外出拼饭
+            出门找拼桌
           </Link>
           <p className="mt-2.5 text-center text-[10px] leading-relaxed text-neutral-400">
-            用当前口味与场景偏好，去活动里找合拍的饭搭子
+            用当前风格与场景偏好，去活动里找合拍的协作伙伴
           </p>
         </div>
       </div>

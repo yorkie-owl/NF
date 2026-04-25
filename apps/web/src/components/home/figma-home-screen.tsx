@@ -19,7 +19,7 @@ type MagnetDef = {
 const MAGNETS: MagnetDef[] = [
   {
     id: 'taste',
-    title: '口味达人',
+    title: '风格达人',
     initialPct: { left: 5, top: 7 },
     widthPct: 22,
     rotateDeg: -6,

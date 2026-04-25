@@ -17,10 +17,10 @@ interface Message {
 }
 
 const QUICK_REPLIES = [
-  '我可以带🥬白菜',
-  '几点到合适？',
-  '需要带什么调料？',
-  '我带饮料🧃',
+  '我能带 React 全栈 💡',
+  '周三晚 7 点合适吗？',
+  '需要谁来跑会员后端？',
+  '我先开个 Figma 共享 🎨',
 ];
 
 const INITIAL_MESSAGES: Message[] = [
@@ -29,7 +29,7 @@ const INITIAL_MESSAGES: Message[] = [
     senderId: 'system',
     senderName: '系统',
     senderAvatar: '',
-    content: '🎉 活动已成功组锅！周六 15:00 见，地点静安区',
+    content: '🎉 这桌已成局！周三晚 19:00 Zoom 见 + Figma 共享',
     time: '14:20',
     isMe: false,
     isSystem: true,
@@ -39,7 +39,7 @@ const INITIAL_MESSAGES: Message[] = [
     senderId: 'zhouyu',
     senderName: '周雨',
     senderAvatar: '👩',
-    content: '大家好！我已经备好面皮了🥟，谁带白菜？',
+    content: '大家好！我有半年甜品店运营手感，会员体系这块我来扛',
     time: '14:32',
     isMe: false,
   },
@@ -48,7 +48,7 @@ const INITIAL_MESSAGES: Message[] = [
     senderId: 'me',
     senderName: '我',
     senderAvatar: '🧑',
-    content: '我带白菜和洋葱！',
+    content: 'React 全栈我接，今晚先把基础页面搭起来',
     time: '14:33',
     isMe: true,
   },
@@ -57,7 +57,7 @@ const INITIAL_MESSAGES: Message[] = [
     senderId: 'chaijiazi',
     senderName: '柴桥子',
     senderAvatar: '👩',
-    content: '我带大蒜🧄，顺便带点儿香油',
+    content: '我做视觉，今晚先出会员卡 + 入会页两个 Figma 稿',
     time: '14:35',
     isMe: false,
   },
@@ -66,7 +66,7 @@ const INITIAL_MESSAGES: Message[] = [
     senderId: 'system',
     senderName: '系统',
     senderAvatar: '',
-    content: '小林 加入了这锅！现在共 4 人，还差 1 人就开锅~',
+    content: '小林 加入了这桌！4 人到齐，可以开桌～',
     time: '14:40',
     isMe: false,
     isSystem: true,
@@ -76,7 +76,7 @@ const INITIAL_MESSAGES: Message[] = [
     senderId: 'xiaolin',
     senderName: '小林',
     senderAvatar: '🧑',
-    content: '大家好！第一次参加，期待周六！🙌',
+    content: '大家好！第一次参加 OPC 拼桌，期待周三 🙌',
     time: '14:41',
     isMe: false,
   },

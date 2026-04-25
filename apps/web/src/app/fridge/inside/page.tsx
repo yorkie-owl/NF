@@ -97,7 +97,7 @@ function buildGrid(items: Ingredient[], error: string | null): { cells: GridCell
     cells: items.slice(0, 10).map((ing) => ({
       id: ing.id,
       name: ing.name,
-      emoji: emojiByName[ing.name] ?? '🥬',
+      emoji: emojiByName[ing.name] ?? '💡',
       gone: new Date(ing.expiresAt) < new Date(),
       href: `/fridge/${ing.id}`,
       restless: restlessness(ing),

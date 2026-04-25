@@ -10,15 +10,21 @@ import { getDemoIngredientByName } from '@/lib/demo-ingredients';
 type Props = { params: Promise<{ name: string }> };
 
 const emojiByName: Record<string, string> = {
-  西兰花: '🥦',
-  胡萝卜: '🥕',
-  番茄: '🍅',
-  鸡蛋: '🥚',
-  柠檬: '🍋',
-  玉米: '🌽',
-  生菜: '🥬',
-  洋葱: '🧅',
-  葡萄: '🍇',
+  长期复利: '🌱',
+  长期主义复利: '🌱',
+  'B2B 内核': '🛠️',
+  'B2B SaaS 内核': '🛠️',
+  '咖啡馆 MVP': '💡',
+  'React 全栈': '🧱',
+  'React 全栈底子': '🧱',
+  锋利文案: '🔪',
+  社区运营: '🌾',
+  社区运营手感: '🌾',
+  周更播客: '🎙️',
+  危机公关: '🛡️',
+  危机公关老手: '🛡️',
+  会员复利: '💎',
+  会员体系复利: '💎',
 };
 
 export default async function FridgePreviewDetailPage({ params }: Props) {
@@ -28,7 +34,7 @@ export default async function FridgePreviewDetailPage({ params }: Props) {
   if (!ing) {
     notFound();
   }
-  const emoji = emojiByName[ing.name] ?? '🥗';
+  const emoji = emojiByName[ing.name] ?? '💡';
   const isAway = new Date(ing.expiresAt) < new Date();
 
   return (

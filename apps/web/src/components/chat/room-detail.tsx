@@ -97,7 +97,7 @@ export default function RoomDetail({ roomId, title }: Props) {
               {remaining > 0 && (
                 <div className="border border-dashed border-gray-200 rounded-xl py-3 text-center">
                   <p className="text-[13px] text-gray-400">
-                    还差 {remaining} 人，等待食友加入...
+                    还差 {remaining} 人，等待协作伙伴加入...
                   </p>
                 </div>
               )}

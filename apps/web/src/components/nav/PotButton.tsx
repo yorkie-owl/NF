@@ -17,7 +17,7 @@ export interface PotButtonProps {
  * inside the nav's arch cutout (see BottomNav SVG). Lifts -20px above the
  * nav baseline so the button crown peeks above the arch.
  */
-export function PotButton({ href, label = '准备起锅', className }: PotButtonProps) {
+export function PotButton({ href, label = '立局', className }: PotButtonProps) {
   return (
     <Link
       href={href}
