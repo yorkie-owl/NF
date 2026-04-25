@@ -439,9 +439,10 @@ function FooterSection() {
 }
 
 export default function IntroPage() {
-  // 跳出 phone-frame 限制：fixed inset-0 cover 整个 viewport（landing page 专用）
+  // /intro is rendered without the phone-frame wrapper (LayoutShell branches on pathname).
+  // Plain block flow gives the landing the full browser viewport.
   return (
-    <div className="fixed inset-0 z-[60] overflow-y-auto overflow-x-hidden bg-white">
+    <div className="min-h-screen w-full overflow-x-hidden bg-white">
       <Hero />
       <ProblemSection />
       <FlowSection />
