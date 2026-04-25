@@ -166,6 +166,9 @@ importers:
       '@lin-shi/contracts':
         specifier: workspace:*
         version: link:../../packages/contracts
+      '@lin-shi/culina-agent':
+        specifier: workspace:*
+        version: link:../../packages/culina-agent
       '@tanstack/react-query':
         specifier: ^5.56.0
         version: 5.99.2(react@19.2.5)
@@ -443,12 +446,6 @@ packages:
     engines: {node: '>=18'}
     cpu: [x64]
     os: [netbsd]
-
-  '@esbuild/openbsd-arm64@0.27.7':
-    resolution: {integrity: sha512-AFuojMQTxAz75Fo8idVcqoQWEHIXFRbOc1TrVcFSgCZtQfSdc1RXgB3tjOn/krRHENUB4j00bfGjyl2mJrU37A==}
-    engines: {node: '>=18'}
-    cpu: [arm64]
-    os: [openbsd]
 
   '@esbuild/openbsd-x64@0.27.7':
     resolution: {integrity: sha512-+A1NJmfM8WNDv5CLVQYJ5PshuRm/4cI6WMZRg1by1GwPIQPCTs1GLEUHwiiQGT5zDdyLiRM/l1G0Pv54gvtKIg==}
@@ -3644,9 +3641,6 @@ snapshots:
   '@esbuild/netbsd-x64@0.27.7':
     optional: true
 
-  '@esbuild/openbsd-arm64@0.27.7':
-    optional: true
-
   '@esbuild/openbsd-x64@0.27.7':
     optional: true
 
@@ -4978,7 +4972,6 @@ snapshots:
       '@esbuild/linux-x64': 0.27.7
       '@esbuild/netbsd-arm64': 0.27.7
       '@esbuild/netbsd-x64': 0.27.7
-      '@esbuild/openbsd-arm64': 0.27.7
       '@esbuild/openbsd-x64': 0.27.7
       '@esbuild/openharmony-arm64': 0.27.7
       '@esbuild/sunos-x64': 0.27.7
