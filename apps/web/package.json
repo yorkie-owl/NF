@@ -12,6 +12,7 @@
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
     "@lin-shi/contracts": "workspace:*",
+    "@lin-shi/culina-agent": "workspace:*",
     "@tanstack/react-query": "^5.56.0",
     "@tanstack/react-query-devtools": "^5.62.0",
     "class-variance-authority": "^0.7.1",
